@@ -1,0 +1,146 @@
+import React from "react";
+import "./HospitalModalDetailTemplate.style.scss";
+import GoogleMaps from "./../../components/google-maps/google-maps.component";
+import clsx from "clsx";
+import Card from "@material-ui/core/Card";
+import CardHeader from "@material-ui/core/CardHeader";
+import CardMedia from "@material-ui/core/CardMedia";
+import CardContent from "@material-ui/core/CardContent";
+import Avatar from "@material-ui/core/Avatar";
+import Divider from "@material-ui/core/Divider";
+import Typography from "@material-ui/core/Typography";
+import Box from "@material-ui/core/Box";
+import Icon from "@material-ui/core/Icon";
+import BusinessIcon from "@material-ui/icons/Business";
+import AirlineSeatIndividualSuiteIcon from "@material-ui/icons/AirlineSeatIndividualSuite";
+import PhoneInTalkIcon from "@material-ui/icons/PhoneInTalk";
+import LanguageIcon from "@material-ui/icons/Language";
+import StarIcon from "@material-ui/icons/Star";
+import ThumbUpIcon from "@material-ui/icons/ThumbUp";
+import Paper from "@material-ui/core/Paper";
+import HotelIcon from "@material-ui/icons/Hotel";
+import { makeStyles } from "@material-ui/core/styles";
+import { green, pink } from "@material-ui/core/colors";
+import RateReviewIcon from "@material-ui/icons/RateReview";
+import CommuteIcon from "@material-ui/icons/Commute";
+import DirectionsWalkIcon from "@material-ui/icons/DirectionsWalk";
+
+const useStyles = makeStyles((theme) => ({
+  smallGreen: {
+    width: theme.spacing(3),
+    height: theme.spacing(3),
+    color: "#fff",
+    backgroundColor: green[500],
+  },
+}));
+export const HospitalModalDetailTemplate = (props) => {
+  const classes = useStyles();
+
+  return (
+    <div>
+      <div className='m_b_10'>
+        <Paper elevation={3}>
+          <div className='displayFlex p_all_5'>
+            <div>
+              <Avatar variant='rounded' className={classes.smallGreen}>
+                <HotelIcon fontSize='small' />
+              </Avatar>
+            </div>
+            <div className='displayData displayFlex'>
+              <Typography>
+                <span className='covidNumberLabel'>{props.c_bed}</span>
+              </Typography>
+
+              <Typography color='textSecondary'> vacant COVID-19 beds *</Typography>
+            </div>
+          </div>
+        </Paper>
+        <Typography component='div' className='m_t_-5'>
+          <Box fontStyle='italic' fontFamily='Monospace' m={1}>
+            *data displayed as per WB Government
+          </Box>
+        </Typography>
+      </div>
+      {props.data != undefined ? (
+        <div className='displayFlex '>
+          <div>
+            <BusinessIcon fontSize='small' />
+          </div>
+          <div className='displayData'>{props.data.formatted_address}</div>
+        </div>
+      ) : null}
+
+      {props.data != undefined ? (
+        <div className='displayFlex '>
+          <div>
+            <PhoneInTalkIcon fontSize='small' />
+          </div>
+          <div className='displayData'>
+            <a href='tel:{props.data.formatted_phone_number}'>{props.data.formatted_phone_number} </a> / <a href='tel:{props.data.international_phone_number}'> {props.data.international_phone_number}</a>
+          </div>
+        </div>
+      ) : null}
+
+      {props.data != undefined ? (
+        <div className='displayFlex '>
+          <div>
+            <LanguageIcon fontSize='small' />
+          </div>
+          <div className='displayData'>
+            <a href='{props.data.website}'>{props.data.website} </a>
+          </div>
+        </div>
+      ) : null}
+      {props.data != undefined ? (
+        <div className='displayFlex '>
+          <div>
+            <RateReviewIcon fontSize='small' />
+          </div>
+          <div className='displayData'>
+            <div className='displayFlex'>
+              {props.data.rating} <StarIcon fontSize='small' /> ({props.data.user_ratings_total} Google Ratings)
+            </div>
+          </div>
+        </div>
+      ) : null}
+      {props.data != undefined ? (
+        <div className='mapcontainerHospital'>
+          <GoogleMaps currentLat={props.data.geometry.location.lat} currentLong={props.data.geometry.location.lng}></GoogleMaps>
+        </div>
+      ) : null}
+      {props.h_dist != "" ? (
+        <div className='displayFlex m_tb_5'>
+          <div className='displayFlex'>
+            <CommuteIcon />
+            <DirectionsWalkIcon fontSize='small' />
+          </div>
+          <div className='displayData'>Tentatively {props.h_dist} Km away from you</div>
+        </div>
+      ) : null}
+
+      <Divider />
+      {props.data != undefined ? (
+        <div>
+          <div className='displayFlex m_tb_10'>
+            <div>
+              <RateReviewIcon fontSize='small' />
+            </div>
+            <div className='displayData'>User Reviews</div>
+          </div>
+          <div className='reviewContainer'>
+            {props.data.reviews.map((rv) => (
+              <Card className='m_b_6 cardReviews'>
+                <CardHeader avatar={<Avatar src={rv.profile_photo_url}></Avatar>} title={rv.author_name} subheader={rv.relative_time_description} />
+                <CardContent>
+                  <Typography variant='body2' color='textSecondary' component='p'>
+                    {rv.text}
+                  </Typography>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      ) : null}
+    </div>
+  );
+};

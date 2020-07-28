@@ -1,26 +1,316 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+/* import logo from "./logo.svg";
+ */
+import "./App.css";
 
-function App() {
+import CssBaseline from "@material-ui/core/CssBaseline";
+import Typography from "@material-ui/core/Typography";
+import Container from "@material-ui/core/Container";
+import Fab from "@material-ui/core/Fab";
+import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
+import Zoom from "@material-ui/core/Zoom";
+import { makeStyles } from "@material-ui/core/styles";
+import PropTypes from "prop-types";
+import useScrollTrigger from "@material-ui/core/useScrollTrigger";
+
+import { LocationDisplayer } from "./components/LocationDisplayer/LocationDisplayer.component";
+import { HospitalTracker } from "./components/HospitalTracker/HospitalTracker.component";
+import { CommunicatorFetch, dummyData } from "./components/Communicator/Communicator.component";
+import APiUrls from "./utils/ApiUrls.data";
+import hospitalData from "./assets/hospitalData";
+import hospitalDetailsData from "./assets/hospitalDetailsData";
+import { Header } from "./components/Header/Header.component";
+import Backdrop from "@material-ui/core/Backdrop";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import LocationOptionInput from "./components/WelcomeModals/LocationInputOptionModals/LocationOptionInput.component";
+import WelcomeModal from "./components/WelcomeModals/WelcomeModal/WelcomeModal.component";
+import DisplayLocationModal from "./components/WelcomeModals/DeviceLocationModal/DisplayLocationModal.component";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    position: "fixed",
+    bottom: theme.spacing(2),
+    right: theme.spacing(2),
+  },
+}));
+
+function ScrollTop(props) {
+  const { children } = props;
+  const classes = useStyles();
+  const trigger = useScrollTrigger({
+    disableHysteresis: true,
+    threshold: 100,
+  });
+
+  const handleClick = (event) => {
+    const anchor = (event.target.ownerDocument || document).querySelector("#back-to-top-anchor");
+
+    if (anchor) {
+      anchor.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Zoom in={trigger}>
+      <div onClick={handleClick} role='presentation' className={classes.root}>
+        {children}
+      </div>
+    </Zoom>
   );
+}
+
+ScrollTop.propTypes = {
+  children: PropTypes.element.isRequired,
+};
+class App extends React.Component {
+  locationCoordinates = {
+    lat: null,
+    long: null,
+  };
+  hospitalList = [];
+  hospitalLocationKeyMap = {};
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      locationCoordinates_lat: null,
+      locationCoordinates_long: null,
+
+      formattedAddress: "",
+      compoundAddress: "",
+      addressComponents: [],
+
+      hospitalDataPrep: false,
+
+      openWelcomeAlert: false,
+      openBackDrop: false,
+      openLocationAlert: false,
+      openLocationOptionAlert: false,
+    };
+  }
+
+  componentDidMount() {
+    //Bootstrap welcome pop-up
+    this.setState(
+      {
+        openWelcomeAlert: true,
+      },
+      () => this.prepareHospitalData()
+    );
+  }
+
+  getLocationTrack = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.watchPosition(
+        (pos) => {
+          if (pos.coords.latitude != this.state.locationCoordinates_lat && pos.coords.longitude != this.state.locationCoordinates_long) {
+            console.log(pos.coords.latitude);
+            this.getFormattedAddress(pos.coords.latitude, pos.coords.longitude);
+          }
+        },
+        (error) => {
+          //ifgeolocation failed
+          if (error.message == "Timeout expired") {
+            this.handleBackDropClose();
+            //temporary for DEV
+            this.getFormattedAddress(22.5815353, 88.466984);
+          } else {
+            //show pop up if denied
+            this.handleBackDropClose();
+            this.setState({
+              openLocationAlert: true,
+            });
+          }
+        },
+        { maximumAge: 60000, timeout: 5000, enableHighAccuracy: true }
+      );
+    }
+  };
+
+  prepareHospitalData = () => {
+    let tempArr = hospitalData.filter((elem) => Object.keys(elem).length >= 4).filter((el) => el["__EMPTY_3"] != 0 && typeof el["__EMPTY_3"] !== "string");
+    this.hospitalList = Object.assign([], tempArr);
+    //make a fetch call for hospitalsDetailsData and then link arrangeHospitalKeyMap()
+
+    this.arrangeHospitalKeyMap();
+  };
+
+  arrangeHospitalKeyMap() {
+    //console.log(this.state.hospitalList);
+    let tempMap = {};
+    for (let i = 0, j = this.hospitalList.length - 1; i <= this.hospitalList.length / 2, j >= this.hospitalList.length / 2; i++, --j) {
+      if (tempMap[this.hospitalList[i]["__EMPTY"]]) {
+        //if(tempMap[this.hospitalList[i]["__EMPTY"]].filter( (row)=> row["__EMPTY_1"] ==this.hospitalList[i]["__EMPTY_1"] ).length == 0){}
+
+        tempMap[this.hospitalList[i]["__EMPTY"]].push({
+          h_name: this.hospitalList[i]["__EMPTY_1"],
+          c_bed: this.hospitalList[i]["__EMPTY_3"],
+          h_zone: this.hospitalList[i]["__EMPTY"],
+          h_loc: hospitalDetailsData[this.hospitalList[i]["__EMPTY_1"]] ? (hospitalDetailsData[this.hospitalList[i]["__EMPTY_1"]]["geometry"] ? hospitalDetailsData[this.hospitalList[i]["__EMPTY_1"]]["geometry"]["location"] : "") : "",
+          h_dist: "",
+        });
+      } else {
+        tempMap[this.hospitalList[i]["__EMPTY"]] = [
+          {
+            h_name: this.hospitalList[i]["__EMPTY_1"],
+            c_bed: this.hospitalList[i]["__EMPTY_3"],
+            h_zone: this.hospitalList[i]["__EMPTY"],
+            h_loc: hospitalDetailsData[this.hospitalList[i]["__EMPTY_1"]] ? (hospitalDetailsData[this.hospitalList[i]["__EMPTY_1"]]["geometry"] ? hospitalDetailsData[this.hospitalList[i]["__EMPTY_1"]]["geometry"]["location"] : "") : "",
+            h_dist: "",
+          },
+        ];
+      }
+
+      if (tempMap[this.hospitalList[j]["__EMPTY"]]) {
+        tempMap[this.hospitalList[j]["__EMPTY"]].push({
+          h_name: this.hospitalList[j]["__EMPTY_1"],
+          c_bed: this.hospitalList[j]["__EMPTY_3"],
+          h_zone: this.hospitalList[j]["__EMPTY"],
+          h_loc: hospitalDetailsData[this.hospitalList[j]["__EMPTY_1"]] ? (hospitalDetailsData[this.hospitalList[j]["__EMPTY_1"]]["geometry"] ? hospitalDetailsData[this.hospitalList[j]["__EMPTY_1"]]["geometry"]["location"] : "") : "",
+          h_dist: "",
+        });
+      } else {
+        tempMap[this.hospitalList[j]["__EMPTY"]] = [
+          {
+            h_name: this.hospitalList[j]["__EMPTY_1"],
+            c_bed: this.hospitalList[j]["__EMPTY_3"],
+            h_zone: this.hospitalList[j]["__EMPTY"],
+            h_loc: hospitalDetailsData[this.hospitalList[j]["__EMPTY_1"]] ? (hospitalDetailsData[this.hospitalList[j]["__EMPTY_1"]]["geometry"] ? hospitalDetailsData[this.hospitalList[j]["__EMPTY_1"]]["geometry"]["location"] : "") : "",
+            h_dist: "",
+          },
+        ];
+      }
+    }
+    //Fix for 24-parganas
+    tempMap["North 24 Parganas"] = Object.assign([], tempMap["N-24 Pgs"].concat(tempMap["North 24 Pgs"]));
+    delete tempMap["N-24 Pgs."];
+    delete tempMap["North 24 Pgs"];
+    tempMap["North 24 Parganas"].forEach((elm) => (elm["h_zone"] = "North 24 Parganas"));
+
+    //this.setState({ hospitalLocationKeyMap: tempMap }, () => console.log(this.state.hospitalLocationKeyMap));
+    this.hospitalLocationKeyMap = tempMap;
+    // this.setState({ hospitalDataPrep: !this.state.hospitalDataPrep });
+  }
+
+  getFormattedAddress = (lat, long) => {
+    CommunicatorFetch(APiUrls.getUserCurrentLocation, lat + "," + long).then(
+      (data) => {
+        this.handleBackDropClose();
+        if (data.results.length != 0) {
+          localStorage.setItem("CV19Tracker_lat", data.results[0].geometry.location.lat);
+          localStorage.setItem("CV19Tracker_long", data.results[0].geometry.location.lng);
+          this.setState({
+            formattedAddress: data.results[0].formatted_address,
+            compoundAddress: data.plus_code.compound_code,
+            addressComponents: Object.assign([], data.results[0].address_components),
+            locationCoordinates_lat: data.results[0].geometry.location.lat,
+            locationCoordinates_long: data.results[0].geometry.location.lng,
+          });
+        } else {
+          // Google denied Map, hence need to show proper error messages
+
+          //current implementation for DEV purposes
+          localStorage.setItem("CV19Tracker_lat", dummyData.results[0].geometry.location.lat);
+          localStorage.setItem("CV19Tracker_long", dummyData.results[0].geometry.location.lng);
+          this.setState({
+            formattedAddress: dummyData.results[0].formatted_address,
+            compoundAddress: dummyData.plus_code.compound_code,
+            addressComponents: Object.assign([], dummyData.results[0].address_components),
+            locationCoordinates_lat: dummyData.results[0].geometry.location.lat,
+            locationCoordinates_long: dummyData.results[0].geometry.location.lng,
+          });
+        }
+      },
+      (error) => {
+        // Google Web api failed, hence need to show proper error messages
+        //current implementation for DEV purposes
+        this.handleBackDropClose();
+        this.setState({
+          formattedAddress: dummyData.results[0].formatted_address,
+          compoundAddress: dummyData.plus_code.compound_code,
+          addressComponents: Object.assign([], dummyData.results[0].address_components),
+          locationCoordinates_lat: lat,
+          locationCoordinates_long: long,
+        });
+      }
+    );
+
+    /*Temp Code */
+    /* this.setState({
+      formattedAddress: dummyData.results[0].formatted_address,
+      compoundAddress: dummyData.plus_code.compound_code,
+      addressComponents: Object.assign([], dummyData.results[0].address_components),
+    }); */
+  };
+
+  getFormattedAddressFRomSearchKeys = () => {};
+
+  handleCloseWelcomeAlert = (el) => {
+    this.setState(
+      {
+        openWelcomeAlert: false,
+        openBackDrop: true,
+      },
+
+      () => this.getLocationTrack()
+    );
+  };
+
+  handleCloseLocationAlert = (el) => {
+    this.setState(
+      {
+        openLocationAlert: false,
+      },
+      () =>
+        this.setState({
+          openLocationOptionAlert: true,
+        })
+    );
+  };
+
+  handleCloseLocationOptionAlert = (el) => {
+    this.setState({
+      openLocationOptionAlert: false,
+    });
+  };
+
+  handleBackDropClose = () => {
+    this.setState({
+      openBackDrop: false,
+    });
+  };
+
+  render() {
+    console.log("rendered");
+    return (
+      <React.Fragment>
+        <CssBaseline />
+        <Header />
+        <Container maxWidth='md'>
+          <Typography component='div' className='App'>
+            {this.state.locationCoordinates_lat != null ? <LocationDisplayer addressDetails={this.state}></LocationDisplayer> : null}
+            {this.state.addressComponents.length !== 0 ? <HospitalTracker arrayData={this.state.addressComponents} hospitalLocationKeyMap={this.hospitalLocationKeyMap}></HospitalTracker> : ""}
+          </Typography>
+          <WelcomeModal open={this.state.openWelcomeAlert} onClose={(el) => this.handleCloseWelcomeAlert(el)} />
+          <DisplayLocationModal open={this.state.openLocationAlert} onClose={(el) => this.handleCloseLocationAlert(el)} />
+          <LocationOptionInput open={this.state.openLocationOptionAlert} onClose={(el) => this.handleCloseLocationOptionAlert(el)} />
+        </Container>
+        <Backdrop open={this.state.openBackDrop} style={{ backgroundColor: "#183259" }}>
+          <div className='loadTrackerWelcome'>
+            <div className='loaderContainer'>
+              <CircularProgress />
+            </div>
+            <div className='loaderTextContainer'>Please wait while we trace your current location ..</div>
+          </div>
+        </Backdrop>
+        <ScrollTop>
+          <Fab color='default' size='small' aria-label='scroll back to top' className='o_9'>
+            <KeyboardArrowUpIcon />
+          </Fab>
+        </ScrollTop>
+      </React.Fragment>
+    );
+  }
 }
 
 export default App;
