@@ -1,24 +1,25 @@
 {
   "files": {
-    "main.css": "/covid19-hospital-tracker-app/static/css/main.fde72f8b.chunk.css",
-    "main.js": "/covid19-hospital-tracker-app/static/js/main.c9d2dc31.chunk.js",
-    "main.js.map": "/covid19-hospital-tracker-app/static/js/main.c9d2dc31.chunk.js.map",
+    "main.css": "/covid19-hospital-tracker-app/static/css/main.9ae87f17.chunk.css",
+    "main.js": "/covid19-hospital-tracker-app/static/js/main.6feccbba.chunk.js",
+    "main.js.map": "/covid19-hospital-tracker-app/static/js/main.6feccbba.chunk.js.map",
     "runtime-main.js": "/covid19-hospital-tracker-app/static/js/runtime-main.18ec90f1.js",
     "runtime-main.js.map": "/covid19-hospital-tracker-app/static/js/runtime-main.18ec90f1.js.map",
-    "static/js/2.2ca21306.chunk.js": "/covid19-hospital-tracker-app/static/js/2.2ca21306.chunk.js",
-    "static/js/2.2ca21306.chunk.js.map": "/covid19-hospital-tracker-app/static/js/2.2ca21306.chunk.js.map",
+    "static/js/2.79ecce94.chunk.js": "/covid19-hospital-tracker-app/static/js/2.79ecce94.chunk.js",
+    "static/js/2.79ecce94.chunk.js.map": "/covid19-hospital-tracker-app/static/js/2.79ecce94.chunk.js.map",
     "index.html": "/covid19-hospital-tracker-app/index.html",
-    "precache-manifest.f58fb733a5092aad0395d7eaed616d8a.js": "/covid19-hospital-tracker-app/precache-manifest.f58fb733a5092aad0395d7eaed616d8a.js",
+    "precache-manifest.4749f0897053441bd127284d11f2f17e.js": "/covid19-hospital-tracker-app/precache-manifest.4749f0897053441bd127284d11f2f17e.js",
     "service-worker.js": "/covid19-hospital-tracker-app/service-worker.js",
-    "static/css/main.fde72f8b.chunk.css.map": "/covid19-hospital-tracker-app/static/css/main.fde72f8b.chunk.css.map",
-    "static/js/2.2ca21306.chunk.js.LICENSE.txt": "/covid19-hospital-tracker-app/static/js/2.2ca21306.chunk.js.LICENSE.txt",
+    "static/css/main.9ae87f17.chunk.css.map": "/covid19-hospital-tracker-app/static/css/main.9ae87f17.chunk.css.map",
+    "static/js/2.79ecce94.chunk.js.LICENSE.txt": "/covid19-hospital-tracker-app/static/js/2.79ecce94.chunk.js.LICENSE.txt",
+    "static/media/LocationDisplayer.styles.scss": "/covid19-hospital-tracker-app/static/media/loc_headBg.d64636ff.jpg",
     "static/media/DisplayLocationModal.style.scss": "/covid19-hospital-tracker-app/static/media/mb_loc1.a2b32a2a.png",
     "static/media/WelcomeModal.style.scss": "/covid19-hospital-tracker-app/static/media/mbl_bck_1.24b61538.jpg"
   },
   "entrypoints": [
     "static/js/runtime-main.18ec90f1.js",
-    "static/js/2.2ca21306.chunk.js",
-    "static/css/main.fde72f8b.chunk.css",
-    "static/js/main.c9d2dc31.chunk.js"
+    "static/js/2.79ecce94.chunk.js",
+    "static/css/main.9ae87f17.chunk.css",
+    "static/js/main.6feccbba.chunk.js"
   ]
 }
