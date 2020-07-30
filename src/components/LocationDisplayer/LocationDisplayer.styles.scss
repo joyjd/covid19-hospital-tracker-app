@@ -82,6 +82,19 @@
 .coronaDataHolder {
   @include displayType(flex);
   font-size: small;
+  font-weight: bold;
+  @include space(padding, left, 20px);
+  @include space(padding, right, 20px);
+}
+.coronaDataHolderDesc {
+  @include displayType(flex);
+  font-size: small;
+  @include space(padding, left, 20px);
+  @include space(padding, right, 10px);
+}
+.dataDiv {
+  @include space(margin, left, 5px);
+  @include space(margin, right, 5px);
 }
 .coronaDataHolderTitle {
   font-weight: bold;
@@ -98,8 +111,13 @@
 .displayAmb1 {
   background-image: url("./../../assets/ambulance.png");
   text-align: left;
+  justify-content: flex-start;
 }
 .displayAmb2 {
   background-image: url("./../../assets/ambulance2.png");
   text-align: right;
+  justify-content: flex-end;
+}
+.displayAmb2 * {
+  justify-content: flex-end;
 }

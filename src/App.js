@@ -191,59 +191,146 @@ class App extends React.Component {
     this.hospitalLocationKeyMap = tempMap;
     // this.setState({ hospitalDataPrep: !this.state.hospitalDataPrep });
   }
+  searchGoogleForUserDetails = (el) => {
+    let searchText = "" + el.locality + "," + el.district + "," + el.pin + ",West Bengal,India";
+    let params = searchText + "&inputtype=textquery&fields=formatted_address,geometry";
+    CommunicatorFetch(APiUrls.getPlaceDetails, params).then(
+      (data) => {
+        if (data["candidates"].length != 0) {
+          localStorage.setItem("CV19Tracker_lat", data["candidates"][0].geometry.location.lat);
+          localStorage.setItem("CV19Tracker_long", data["candidates"][0].geometry.location.lng);
+          //make custom address componnets
+          let address_components = [];
+          let tempAddr = data["candidates"][0]["formatted_address"].split(",");
+          tempAddr.pop();
+
+          tempAddr = tempAddr.forEach((elem) => {
+            address_components.push({
+              long_name: elem.trim(),
+              short_name: elem.trim(),
+              types: ["political", "sublocality", "sublocality_level_1"],
+            });
+          });
+
+          this.setState(
+            {
+              formattedAddress: data["candidates"][0]["formatted_address"],
+              compoundAddress: "",
+              addressComponents: Object.assign([], address_components),
+              locationCoordinates_lat: data["candidates"][0].geometry.location.lat,
+              locationCoordinates_long: data["candidates"][0].geometry.location.lng,
+            },
+            () => this.handleBackDropClose()
+          );
+        } else {
+          //show pop up for google denial
+
+          //custom create address_format
+          let address_components = [];
+          let tempAddr = el.locality.split(" ");
+          tempAddr.push(el.district);
+          tempAddr = tempAddr.forEach((elem) => {
+            address_components.push({
+              long_name: elem.trim(),
+              short_name: elem.trim(),
+              types: ["political", "sublocality", "sublocality_level_1"],
+            });
+          });
+          let tmmpAddr = el.locality + "," + el.district + ", pin -" + el.pin;
+          this.setState(
+            {
+              formattedAddress: tmmpAddr,
+              compoundAddress: "",
+              addressComponents: Object.assign([], address_components),
+              locationCoordinates_lat: 0,
+              locationCoordinates_long: 0,
+            },
+            () => this.handleBackDropClose()
+          );
+        }
+      },
+      (error) => {
+        //show pop up for google denial
+
+        //custom create address_format
+        let address_components = [];
+        let tempAddr = el.locality.split(" ");
+        tempAddr.push(el.district);
+        tempAddr = tempAddr.forEach((elem) => {
+          address_components.push({
+            long_name: elem.trim(),
+            short_name: elem.trim(),
+            types: ["political", "sublocality", "sublocality_level_1"],
+          });
+        });
+
+        let tmmpAddr = el.locality + "," + el.district + ", pin -" + el.pin;
+        this.setState(
+          {
+            formattedAddress: tmmpAddr,
+            compoundAddress: "",
+            addressComponents: Object.assign([], address_components),
+            locationCoordinates_lat: 0,
+            locationCoordinates_long: 0,
+          },
+          () => this.handleBackDropClose()
+        );
+      }
+    );
+  };
 
   getFormattedAddress = (lat, long) => {
     CommunicatorFetch(APiUrls.getUserCurrentLocation, lat + "," + long).then(
       (data) => {
-        this.handleBackDropClose();
+        // this.handleBackDropClose();
         if (data.results.length != 0) {
           localStorage.setItem("CV19Tracker_lat", data.results[0].geometry.location.lat);
           localStorage.setItem("CV19Tracker_long", data.results[0].geometry.location.lng);
-          this.setState({
-            formattedAddress: data.results[0].formatted_address,
-            compoundAddress: data.plus_code.compound_code,
-            addressComponents: Object.assign([], data.results[0].address_components),
-            locationCoordinates_lat: data.results[0].geometry.location.lat,
-            locationCoordinates_long: data.results[0].geometry.location.lng,
-          });
+          this.setState(
+            {
+              formattedAddress: data.results[0].formatted_address,
+              compoundAddress: data.plus_code.compound_code,
+              addressComponents: Object.assign([], data.results[0].address_components),
+              locationCoordinates_lat: data.results[0].geometry.location.lat,
+              locationCoordinates_long: data.results[0].geometry.location.lng,
+            },
+            () => this.handleBackDropClose()
+          );
         } else {
           // Google denied Map, hence need to show proper error messages
 
           //current implementation for DEV purposes
           localStorage.setItem("CV19Tracker_lat", dummyData.results[0].geometry.location.lat);
           localStorage.setItem("CV19Tracker_long", dummyData.results[0].geometry.location.lng);
-          this.setState({
-            formattedAddress: dummyData.results[0].formatted_address,
-            compoundAddress: dummyData.plus_code.compound_code,
-            addressComponents: Object.assign([], dummyData.results[0].address_components),
-            locationCoordinates_lat: dummyData.results[0].geometry.location.lat,
-            locationCoordinates_long: dummyData.results[0].geometry.location.lng,
-          });
+          this.setState(
+            {
+              formattedAddress: dummyData.results[0].formatted_address,
+              compoundAddress: dummyData.plus_code.compound_code,
+              addressComponents: Object.assign([], dummyData.results[0].address_components),
+              locationCoordinates_lat: dummyData.results[0].geometry.location.lat,
+              locationCoordinates_long: dummyData.results[0].geometry.location.lng,
+            },
+            () => this.handleBackDropClose()
+          );
         }
       },
       (error) => {
         // Google Web api failed, hence need to show proper error messages
         //current implementation for DEV purposes
-        this.handleBackDropClose();
-        this.setState({
-          formattedAddress: dummyData.results[0].formatted_address,
-          compoundAddress: dummyData.plus_code.compound_code,
-          addressComponents: Object.assign([], dummyData.results[0].address_components),
-          locationCoordinates_lat: lat,
-          locationCoordinates_long: long,
-        });
+
+        this.setState(
+          {
+            formattedAddress: dummyData.results[0].formatted_address,
+            compoundAddress: dummyData.plus_code.compound_code,
+            addressComponents: Object.assign([], dummyData.results[0].address_components),
+            locationCoordinates_lat: lat,
+            locationCoordinates_long: long,
+          },
+          () => this.handleBackDropClose()
+        );
       }
     );
-
-    /*Temp Code */
-    /* this.setState({
-      formattedAddress: dummyData.results[0].formatted_address,
-      compoundAddress: dummyData.plus_code.compound_code,
-      addressComponents: Object.assign([], dummyData.results[0].address_components),
-    }); */
   };
-
-  getFormattedAddressFRomSearchKeys = () => {};
 
   handleCloseWelcomeAlert = (el) => {
     this.setState(
@@ -269,9 +356,14 @@ class App extends React.Component {
   };
 
   handleCloseLocationOptionAlert = (el) => {
-    this.setState({
-      openLocationOptionAlert: false,
-    });
+    // console.log(el);
+    this.setState(
+      {
+        openLocationOptionAlert: false,
+        openBackDrop: true,
+      },
+      () => this.searchGoogleForUserDetails(el)
+    );
   };
 
   handleBackDropClose = () => {

@@ -210,7 +210,7 @@ export class HospitalZone extends React.Component {
     }  */ else {
       let searchText = "" + h_name + "," + h_zone + ",West Bengal,India";
       let params = searchText + "&inputtype=textquery&fields=place_id";
-      CommunicatorFetch(ApiUrls.getHospitalDetails, params)
+      CommunicatorFetch(ApiUrls.getPlaceDetails, params)
         .then(
           (data) => {
             if (data["candidates"].length != 0) {

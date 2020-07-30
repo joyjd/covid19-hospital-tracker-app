@@ -37,12 +37,20 @@ export class HospitalTracker extends React.Component {
   prepareSelectedZoneHospitalList = () => {
     let tempHptlList = [];
     let hospitalZoneTags = [];
+
     this.state.locationTags.forEach((elem) => {
       if (this.props.hospitalLocationKeyMap[elem]) {
         this.props.hospitalLocationKeyMap[elem].forEach((el) => tempHptlList.push(el));
         hospitalZoneTags.push(elem);
       }
     });
+    //By default Show Kolkata zone- if nothing matches
+    if (hospitalZoneTags.length == 0) {
+      this.props.hospitalLocationKeyMap["Kolkata"].forEach((elem) => {
+        tempHptlList.push(elem);
+      });
+      hospitalZoneTags.push("Kolkata");
+    }
 
     this.setState({
       selectedHospitalList: tempHptlList,

@@ -32,18 +32,25 @@ export class LocationDisplayer extends React.Component {
     /* this.setState({
       scrollTop: scrollTop,
     }); */
-    console.log(leftPosition);
-
-    this.myRef2.current.style.left = leftPosition + 100 + "px";
-    if (leftPosition > 100) {
-      this.myRef2.current.style.display = "none";
-    } else {
-      this.myRef2.current.style.display = "block";
+    //console.log(leftPosition);
+    if (leftPosition < -70) {
+      this.myRef2.current.style.left = leftPosition + 100 + "px";
     }
+    /* if (leftPosition > -70) {
+      this.myRef2.current.style.left = leftPosition + "px";
+    } */
+    /* 
+    if (leftPosition > 50) {
+      // this.myRef2.current.style.display = "none";
+      this.myRef2.current.style.width = "0";
+    } else {
+      // this.myRef2.current.style.display = "block";
+      this.myRef2.current.style.width = "-webkit-fill-available";
+    } */
     if (this.ambulanceTravelNode != null && this.ambulanceTravelNode > leftPosition) {
       this.myRef2.current.classList.add("displayAmb2");
       this.myRef2.current.classList.remove("displayAmb1");
-    } else if (this.ambulanceTravelNode != null && leftPosition < 100) {
+    } else if (this.ambulanceTravelNode != null && leftPosition < 0) {
       this.myRef2.current.classList.remove("displayAmb2");
       this.myRef2.current.classList.add("displayAmb1");
     }
@@ -98,9 +105,14 @@ export class LocationDisplayer extends React.Component {
           <div className='bg-move displayAmb1' ref={this.myRef2}>
             <div className='coronaDataHolderTitle'>COVID19 Updates</div>
             <div className='coronaDataHolder'>
-              <div>Infected</div>
-              <div>Recovered</div>
-              <div>Death</div>
+              <div className='dataDiv'>Infected</div>
+              <div className='dataDiv'>Recovered</div>
+              <div className='dataDiv'>Death</div>
+            </div>
+            <div className='coronaDataHolderDesc'>
+              <div className='dataDiv'>1234500</div>
+              <div className='dataDiv'>1234567</div>
+              <div className='dataDiv'>1234567</div>
             </div>
           </div>
         </div>

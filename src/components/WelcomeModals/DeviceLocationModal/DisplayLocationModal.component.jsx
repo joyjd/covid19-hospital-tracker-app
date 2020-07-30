@@ -29,7 +29,7 @@ export default function DisplayLocationModal(props) {
               <br />
               <div>To change this, you can click on this icon over your bowser and select "Manage", delete http:www.abc.com from "Block" list and then refresh the page.It will again ask for your permission.</div>
               <br />
-              <div>Alternately, if you do not wish to disclose your device location, you can manually type in your desired location address,and proceed along.</div>
+              <div>Alternatively, if you do not wish to disclose your device location, you can manually type in your desired location address,and proceed along.</div>
               <div>
                 <Button variant='contained' color='primary' onClick={() => props.onClose()}>
                   Okay, I Understand
