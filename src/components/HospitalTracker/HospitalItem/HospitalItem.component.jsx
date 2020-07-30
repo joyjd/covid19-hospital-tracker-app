@@ -16,7 +16,7 @@ import * as geolib from "geolib";
 import PriorityHighIcon from "@material-ui/icons/PriorityHigh";
 const StyledTableCell = withStyles((theme) => ({
   head: {
-    backgroundColor: theme.palette.common.black,
+    backgroundColor: "#1a355c",
     color: theme.palette.common.white,
   },
   body: {
@@ -27,7 +27,7 @@ const StyledTableCell = withStyles((theme) => ({
 const StyledTableRow = withStyles((theme) => ({
   root: {
     "&:nth-of-type(odd)": {
-      backgroundColor: theme.palette.action.hover,
+      backgroundColor: "#639ab626",
     },
   },
 }))(TableRow);
@@ -45,7 +45,7 @@ export const HospitalItem = (props) => {
     <TableContainer component={Paper} id='hospitalDetailTable'>
       <Table className={classes.table} aria-label='customized table'>
         <TableHead>
-          <TableRow>
+          <TableRow style={{ backgroundColor: "red", color: "white" }}>
             <StyledTableCell>Covid19 Hospital</StyledTableCell>
             <StyledTableCell align='right'>Area</StyledTableCell>
             <StyledTableCell align='right'>Vacant Beds*</StyledTableCell>

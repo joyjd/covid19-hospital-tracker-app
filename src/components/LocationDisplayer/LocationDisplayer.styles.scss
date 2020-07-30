@@ -83,19 +83,18 @@
   @include displayType(flex);
   font-size: small;
   font-weight: bold;
-  @include space(padding, left, 20px);
-  @include space(padding, right, 20px);
+  @include space(padding, left, 5px);
+  @include space(padding, right, 5px);
+  @include space(margin, top, 5px);
 }
 .coronaDataHolderDesc {
   @include displayType(flex);
   font-size: small;
-  @include space(padding, left, 20px);
-  @include space(padding, right, 10px);
+  @include space(padding, left, 5px);
+  @include space(padding, right, 0);
+  font-size: small;
 }
-.dataDiv {
-  @include space(margin, left, 5px);
-  @include space(margin, right, 5px);
-}
+
 .coronaDataHolderTitle {
   font-weight: bold;
   color: #ffffff;
@@ -120,4 +119,22 @@
 }
 .displayAmb2 * {
   justify-content: flex-end;
+}
+.dataHolder {
+  width: 60%;
+  float: left;
+  margin-left: 5px;
+  @include space(margin, top, 5px);
+  display: flex;
+  justify-content: space-around;
+  font-size: small;
+  text-align: center;
+}
+.displayAmb2 .dataHolder {
+  float: right;
+  margin-right: 5px;
+}
+
+.dataDiv {
+  font-weight: bold;
 }

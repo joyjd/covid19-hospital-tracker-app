@@ -879,7 +879,12 @@ export const p_idList = [
 
 export const CommunicatorFetch = (urlName, params) => {
   console.log("Communication fetched==" + urlName);
-  let url = urlName + params + apiKey;
+  let url;
+  if (params != "") {
+    url = urlName + params + apiKey;
+  } else {
+    url = urlName;
+  }
   //return fetch(proxyurl + url).then((response) => dummyData);
   return fetch(proxyurl + url).then((response) => response.json());
 };

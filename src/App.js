@@ -380,7 +380,7 @@ class App extends React.Component {
         <Header />
         <Container maxWidth='md'>
           <Typography component='div' className='App'>
-            {this.state.locationCoordinates_lat != null && this.state.addressComponents.length !== 0 ? <LocationDisplayer addressDetails={this.state}></LocationDisplayer> : null}
+            {this.state.locationCoordinates_lat != null && this.state.addressComponents.length !== 0 ? <LocationDisplayer addressDetails={this.state}></LocationDisplayer> : "Location display null"}
             {this.state.addressComponents.length !== 0 ? <HospitalTracker arrayData={this.state.addressComponents} hospitalLocationKeyMap={this.hospitalLocationKeyMap}></HospitalTracker> : ""}
           </Typography>
           <WelcomeModal open={this.state.openWelcomeAlert} onClose={(el) => this.handleCloseWelcomeAlert(el)} />

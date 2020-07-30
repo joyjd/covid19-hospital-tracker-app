@@ -5,6 +5,8 @@ import Paper from "@material-ui/core/Paper";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 import PersonPinIcon from "@material-ui/icons/PersonPin";
 import { StaticTagDisplayer } from "../staticTagDisplayer/StaticTagDisplayer.component";
+import { CommunicatorFetch } from "./../Communicator/Communicator.component";
+import APiUrls from "./../../utils/ApiUrls.data";
 
 const exclusiveKeywords = ["postal_code", "country"];
 
@@ -14,7 +16,9 @@ export class LocationDisplayer extends React.Component {
     super(props);
     this.state = {
       locationTags: [],
-      //  scrollTop: 0,
+      infected: 0,
+      recovered: 0,
+      deceased: 0,
     };
     this.myRef = React.createRef();
     this.myRef2 = React.createRef();
@@ -22,7 +26,30 @@ export class LocationDisplayer extends React.Component {
   componentDidMount() {
     this.prepareLocationTags();
     window.addEventListener("scroll", this.handleScroll);
+    this.getCoronaDetails();
   }
+  getCoronaDetails = () => {
+    CommunicatorFetch(APiUrls.getCoronaUpdate, "").then(
+      (data) => {
+        console.log(data);
+        let totalData = data["West Bengal"]["districtData"];
+        let infected = 0;
+        let recovered = 0;
+        let dead = 0;
+        Object.keys(totalData).forEach((dst_name) => {
+          infected += totalData[dst_name]["confirmed"];
+          recovered += totalData[dst_name]["recovered"];
+          dead += totalData[dst_name]["deceased"];
+        });
+        this.setState({
+          infected: infected,
+          recovered: recovered,
+          deceased: dead,
+        });
+      },
+      (error) => {}
+    );
+  };
   handleScroll = () => {
     const scrollY = window.scrollY;
     const scrollTop = this.myRef.current.scrollTop;
@@ -103,16 +130,20 @@ export class LocationDisplayer extends React.Component {
         </div>
         <div className='amb' ref={this.myRef} onScroll={this.handleScroll}>
           <div className='bg-move displayAmb1' ref={this.myRef2}>
-            <div className='coronaDataHolderTitle'>COVID19 Updates</div>
-            <div className='coronaDataHolder'>
-              <div className='dataDiv'>Infected</div>
-              <div className='dataDiv'>Recovered</div>
-              <div className='dataDiv'>Death</div>
-            </div>
-            <div className='coronaDataHolderDesc'>
-              <div className='dataDiv'>1234500</div>
-              <div className='dataDiv'>1234567</div>
-              <div className='dataDiv'>1234567</div>
+            <div className='coronaDataHolderTitle'>COVID19 Updates(WB)</div>
+            <div className='dataHolder'>
+              <div>
+                <div className='dataDiv'>Infected</div>
+                <div>{this.state.infected}</div>
+              </div>
+              <div>
+                <div className='dataDiv'>Recovered</div>
+                <div>{this.state.recovered}</div>
+              </div>
+              <div>
+                <div className='dataDiv'>Death</div>
+                <div>{this.state.deceased}</div>
+              </div>
             </div>
           </div>
         </div>
