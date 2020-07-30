@@ -7,6 +7,7 @@
 .locationTitleContainer {
   background-image: url("./../../assets/loc_headBg.jpg"); /* The image used */
   border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
   background-position: center; /* Center the image */
   background-repeat: no-repeat; /* Do not repeat the image */
   background-size: cover;
@@ -56,14 +57,15 @@
 }
 .mapcontainer {
   @include space(padding, all, 5px);
+  @include space(margin, bottom, 10px);
   width: 100%;
 }
 
 //test code
 .amb {
   position: relative;
-  max-width: 920px;
-  min-height: 50vh;
+  //max-width: 920px;
+  min-height: 25vh;
 }
 .bg-move {
   position: absolute;
@@ -72,7 +74,32 @@
   right: auto;
 
   width: 100%;
-  background-image: url("https://www.dropbox.com/s/isdqow2394y3t35/img-blog-background-move-scrolling-boat.png?raw=1");
-  background-size: cover;
-  background-position: center;
+  //background-image: url("./../../assets/ambulance.png");
+
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+.coronaDataHolder {
+  @include displayType(flex);
+  font-size: small;
+}
+.coronaDataHolderTitle {
+  font-weight: bold;
+  color: #ffffff;
+  @include space(padding, left, 10px);
+  @include space(padding, right, 10px);
+  @include space(margin, top, 5px);
+}
+.locationDesc {
+  text-align: left;
+  @include displayType(flex);
+  @include space(margin, left, 5px);
+}
+.displayAmb1 {
+  background-image: url("./../../assets/ambulance.png");
+  text-align: left;
+}
+.displayAmb2 {
+  background-image: url("./../../assets/ambulance2.png");
+  text-align: right;
 }

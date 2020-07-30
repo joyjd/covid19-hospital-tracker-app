@@ -25,7 +25,10 @@ import TextField from "@material-ui/core/TextField";
 import SearchIcon from "@material-ui/icons/Search";
 import Filteralert from "./../../../utils/Modals/Filteralert.component";
 import FilterModalTmpl from "./../../../utils/Modals/FilterModalTemplate.component";
-
+import Paper from "@material-ui/core/Paper";
+import DomainTwoToneIcon from "@material-ui/icons/DomainTwoTone";
+import { StaticTagDisplayer } from "../../staticTagDisplayer/StaticTagDisplayer.component";
+import ButtonGroup from "@material-ui/core/ButtonGroup";
 export class HospitalZone extends React.Component {
   tagAction = {
     add: "plus",
@@ -330,7 +333,7 @@ export class HospitalZone extends React.Component {
 
     return (
       <div>
-        <Card className='cardGeneric '>
+        {/* <Card className='cardGeneric '>
           <CardContent>
             <div id='cont_FilterHospitalZones' className={aval_Filters.length < 3 ? "" : "excerpt-hidden"}>
               <div className='displayFlex'>
@@ -376,20 +379,20 @@ export class HospitalZone extends React.Component {
             ) : null}
           </CardContent>
         </Card>
-
-        <Card className='cardGeneric' id='containerHospitalList'>
-          <CardHeader
+ */}
+        <Paper elevation={3} className='transparentBorder' id='containerHospitalList'>
+          {/* <CardHeader
             avatar={
               <Avatar variant='square' aria-label='recipe' className='hospitalAvatar'>
                 <LocalHospitalIcon color='secondary' />
               </Avatar>
             }
-            action={
+            /* action={
               <IconButton aria-label='settings' onClick={() => this.handleOpenFilter()}>
                 <MoreVertIcon />
               </IconButton>
-            }
-            title={
+            } */
+          /*  title={
               <strong>
                 <span className='font_l'>Hospitals Found ({this.state.selectedHospitalList.length})*</span>
               </strong>
@@ -409,8 +412,23 @@ export class HospitalZone extends React.Component {
                 )}
               </Box>
             }
-          ></CardHeader>
-          <div className='displayFlex'>
+          ></CardHeader> */}
+          <div className='hospitalTitleContainer'>
+            <div className='hospitalIconholder transparentBorder'>
+              <DomainTwoToneIcon fontSize='large' color='primary'></DomainTwoToneIcon>
+            </div>
+            <div className='hospitalTitleHolderContainer'>
+              <div className='hospitalAvatar'>
+                <LocalHospitalIcon color='secondary' />
+              </div>
+              <div>
+                <div>Hospitals Found ({this.state.selectedHospitalList.length})*</div>
+
+                {this.state.searchText == "" ? <div className='listNature'>* based on your current location areas</div> : <div className='listNature'>* based on Search Results</div>}
+              </div>
+            </div>
+          </div>
+          <div className='displayFlex searchBoxHospitalContainer shadowCustom'>
             <div className='searchIconHolder'>
               <SearchIcon />
             </div>
@@ -418,8 +436,31 @@ export class HospitalZone extends React.Component {
               <TextField id='outlined-textarea' className='w_100' label='Search Hospitals By Name' placeholder='Find any COVID19 hospital ..' multiline variant='filled' type='search' onChange={(el) => this.handleSearchEngine(el)} />
             </div>
           </div>
+
+          <div className='customButtonGroup'>
+            <Paper variant='outlined' square>
+              <div className='btnCol'>
+                <ButtonGroup variant='contained' color='primary' aria-label='contained primary button group'>
+                  <Button className='customButtonText'>Select by Area / Zones</Button>
+                  <Button className='customButtonText' onClick={() => this.handleOpenFilter()}>
+                    Manage View
+                  </Button>
+                </ButtonGroup>
+              </div>
+              <div className='tagHeaderTitle'>
+                <Typography color='textSecondary'>
+                  <ExposureIcon fontSize='small' />
+                </Typography>
+                <Typography color='textSecondary'>Selected Areas / Zones ({this.state.selectedZones.length})</Typography>
+              </div>
+              <div>
+                <StaticTagDisplayer locationTags={this.state.selectedZones} />
+              </div>
+            </Paper>
+          </div>
+
           <CardMedia>
-            <div>
+            <div className='hospitalListHoldContainer'>
               <HospitalItem selectedHospitalList={this.state.selectedHospitalList} onClick={(h_name, h_zone, c_bed, h_dist) => this.handleHospitalDetails(h_name, h_zone, c_bed, h_dist)} />
             </div>
             <div className='disclaimerHospital'>
@@ -427,7 +468,7 @@ export class HospitalZone extends React.Component {
               <div>* Distances shown are tentative and may not be exactly accurate</div>
             </div>
           </CardMedia>
-        </Card>
+        </Paper>
 
         <ResponsiveDialog open={this.state.openModal} onClose={this.handleCloseModal} headerTitle={this.modalContent.headerTitle} body={this.modalContent.body} />
         <Filteralert open={this.state.openFilteralert} onClose={(el) => this.handleCloseAlert(el)} header={this.filterContent.header} body={this.filterContent.body} />

@@ -9,11 +9,12 @@ import { StaticTagDisplayer } from "../staticTagDisplayer/StaticTagDisplayer.com
 const exclusiveKeywords = ["postal_code", "country"];
 
 export class LocationDisplayer extends React.Component {
+  ambulanceTravelNode = null;
   constructor(props) {
     super(props);
     this.state = {
       locationTags: [],
-      scrollTop: 0,
+      //  scrollTop: 0,
     };
     this.myRef = React.createRef();
     this.myRef2 = React.createRef();
@@ -23,15 +24,30 @@ export class LocationDisplayer extends React.Component {
     window.addEventListener("scroll", this.handleScroll);
   }
   handleScroll = () => {
-    const scrollY = window.scrollY; //Don't get confused by what's scrolling - It's not the window
+    const scrollY = window.scrollY;
     const scrollTop = this.myRef.current.scrollTop;
     const offsetTop = this.myRef.current.offsetTop;
     let leftPosition = scrollY - offsetTop;
-    console.log(leftPosition);
-    this.setState({
+
+    /* this.setState({
       scrollTop: scrollTop,
-    });
-    this.myRef2.current.style.left = leftPosition + 200 + "px";
+    }); */
+    console.log(leftPosition);
+
+    this.myRef2.current.style.left = leftPosition + 100 + "px";
+    if (leftPosition > 100) {
+      this.myRef2.current.style.display = "none";
+    } else {
+      this.myRef2.current.style.display = "block";
+    }
+    if (this.ambulanceTravelNode != null && this.ambulanceTravelNode > leftPosition) {
+      this.myRef2.current.classList.add("displayAmb2");
+      this.myRef2.current.classList.remove("displayAmb1");
+    } else if (this.ambulanceTravelNode != null && leftPosition < 100) {
+      this.myRef2.current.classList.remove("displayAmb2");
+      this.myRef2.current.classList.add("displayAmb1");
+    }
+    this.ambulanceTravelNode = leftPosition;
   };
   prepareLocationTags = () => {
     let finalTags = this.props.addressDetails.addressComponents.filter((dataElem) => {
@@ -53,7 +69,12 @@ export class LocationDisplayer extends React.Component {
               <div className='locationIconholder'>
                 <LocationOnIcon fontSize='large' color='primary'></LocationOnIcon>
               </div>
-              Your current location :
+              <div className='locationDesc'>
+                <div>
+                  <PersonPinIcon />
+                </div>
+                <div> Your current location :</div>
+              </div>
             </div>
             <div>
               <div className='AddressContainer'>
@@ -74,7 +95,14 @@ export class LocationDisplayer extends React.Component {
           </Paper>
         </div>
         <div className='amb' ref={this.myRef} onScroll={this.handleScroll}>
-          <div className='bg-move' ref={this.myRef2}></div>
+          <div className='bg-move displayAmb1' ref={this.myRef2}>
+            <div className='coronaDataHolderTitle'>COVID19 Updates</div>
+            <div className='coronaDataHolder'>
+              <div>Infected</div>
+              <div>Recovered</div>
+              <div>Death</div>
+            </div>
+          </div>
         </div>
       </div>
     );

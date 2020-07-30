@@ -1,3 +1,4 @@
+@import "./../../../styles/mixins.style.scss";
 .selectedH_ZonesContainer {
   display: flex;
   flex-wrap: wrap;
@@ -6,23 +7,19 @@
   display: flex;
   flex-wrap: wrap;
 }
-.hospitalAvatar {
-  background-color: #ecd0d0 !important;
-  border: 5px solid #f50057;
-}
+
 .m_all_0 {
   margin: 0 !important;
 }
 .searchContainer {
-  margin: 0px 10px 10px 0px;
+  /* margin: 0px 10px 10px 0px; */
 }
 .searchIconHolder {
-  margin: 0 0 10px 10px;
-  padding-top: 15px;
-
-  background-color: #37698d52;
-  border-bottom: 2px solid #acacac;
+  background-color: #639ab685;
+  border-bottom: 1px solid #878787;
   color: #004887;
+  border-top-left-radius: 1px;
+  padding-top: 15px;
 }
 .w_100 {
   width: 100%;
@@ -31,4 +28,69 @@
   font-size: 0.75rem !important;
   padding: 5px 15px 20px 5px;
   color: #a8b5c3;
+}
+//New Class Styles
+.hospitalTitleContainer {
+  background-image: url("./../../../assets/hosp_headingBG.jpg"); /* The image used */
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  background-position: center; /* Center the image */
+  // background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover;
+  @include space(padding, top, 10px);
+  font-weight: bolder;
+  color: #ffffff;
+  border-bottom: 15px solid #24375a30;
+  @include transparentBorder(-15px);
+}
+.hospitalIconholder {
+  position: relative;
+  @include space(margin, top, -45px);
+  @include space(padding, top, 2px);
+  top: 10px;
+  right: 10px;
+  background-color: #ffffff;
+  width: 50px;
+  height: 50px;
+  border: 5px solid #3f51b5d9;
+
+  border-radius: 30px;
+  @include elemFloat(right);
+}
+.hospitalTitleHolderContainer {
+  @include displayType(flex);
+  width: 100%;
+  text-align: left;
+}
+.hospitalAvatar {
+  background-color: #ecd0d0 !important;
+  border: 5px solid #f50057;
+  margin: 0 10px 10px 10px;
+  padding: 5px 5px 0 5px;
+}
+.listNature {
+  font-weight: normal;
+  font-size: small;
+}
+.searchBoxHospitalContainer {
+  margin-top: -15px;
+  background-color: #ffffff;
+  /* width: 90%; */
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.hospitalListHoldContainer {
+  @include space(margin, top, 10px);
+}
+.customButtonGroup {
+  margin: 10px;
+}
+.btnCol {
+  @include space(padding, all, 5px);
+}
+.tagHeaderTitle {
+  text-align: left;
+  @include displayType(flex);
+  @include space(margin, top, 5px);
+  @include space(margin, left, 5px);
 }
