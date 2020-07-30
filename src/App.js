@@ -1,7 +1,7 @@
 import React from "react";
 /* import logo from "./logo.svg";
  */
-import "./App.css";
+import "./App.scss";
 
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Typography from "@material-ui/core/Typography";
@@ -288,7 +288,7 @@ class App extends React.Component {
         <Header />
         <Container maxWidth='md'>
           <Typography component='div' className='App'>
-            {this.state.locationCoordinates_lat != null ? <LocationDisplayer addressDetails={this.state}></LocationDisplayer> : null}
+            {this.state.locationCoordinates_lat != null && this.state.addressComponents.length !== 0 ? <LocationDisplayer addressDetails={this.state}></LocationDisplayer> : null}
             {this.state.addressComponents.length !== 0 ? <HospitalTracker arrayData={this.state.addressComponents} hospitalLocationKeyMap={this.hospitalLocationKeyMap}></HospitalTracker> : ""}
           </Typography>
           <WelcomeModal open={this.state.openWelcomeAlert} onClose={(el) => this.handleCloseWelcomeAlert(el)} />

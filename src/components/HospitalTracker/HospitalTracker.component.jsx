@@ -53,8 +53,7 @@ export class HospitalTracker extends React.Component {
   render() {
     return (
       <div>
-        <Card className='cardGeneric'>
-          <CardContent>
+        <Card className='cardGeneric'>{/* <CardContent>
             <div className='displayFlex'>
               <Typography color='textSecondary'>
                 <ExploreIcon />
@@ -64,8 +63,7 @@ export class HospitalTracker extends React.Component {
             <div>
               <LocationKeyword locationTags={this.state.locationTags} />
             </div>
-          </CardContent>
-        </Card>
+          </CardContent> */}</Card>
         {this.state.selectedHospitalZoneTags.length != 0 && this.state.selectedHospitalList.length != 0 ? <HospitalZone selectedHospitalZoneTags={this.state.selectedHospitalZoneTags} selectedHospitalList={this.state.selectedHospitalList} hospitalLocationKeyMap={this.props.hospitalLocationKeyMap} /> : null}
       </div>
     );
