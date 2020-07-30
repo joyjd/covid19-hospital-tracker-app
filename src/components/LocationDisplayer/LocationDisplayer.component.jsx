@@ -130,7 +130,8 @@ export class LocationDisplayer extends React.Component {
         </div>
         <div className='amb' ref={this.myRef} onScroll={this.handleScroll}>
           <div className='bg-move displayAmb1' ref={this.myRef2}>
-            <div className='coronaDataHolderTitle'>COVID19 Updates(WB)</div>
+            <div className='ambLight light--flash'></div>
+            <div className='coronaDataHolderTitle '>COVID19 Updates(WB)</div>
             <div className='dataHolder'>
               <div>
                 <div className='dataDiv'>Infected</div>
