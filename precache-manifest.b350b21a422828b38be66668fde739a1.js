@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "a32fa9770673cc46f17afe156e515843",
+    "revision": "047bafce55c19a0c9e40500a672914f3",
     "url": "/covid19-hospital-tracker-app/index.html"
   },
   {
-    "revision": "107dda36b01171329b83",
-    "url": "/covid19-hospital-tracker-app/static/css/main.9ae87f17.chunk.css"
+    "revision": "d00a471a5799044200a5",
+    "url": "/covid19-hospital-tracker-app/static/css/main.fe3b7283.chunk.css"
   },
   {
-    "revision": "2ba0af31d0cd8d12f86a",
-    "url": "/covid19-hospital-tracker-app/static/js/2.79ecce94.chunk.js"
+    "revision": "85277074acf3fa865c6a",
+    "url": "/covid19-hospital-tracker-app/static/js/2.bd286cc6.chunk.js"
   },
   {
-    "revision": "d455b55662ec59e842e850740eeaf3d2",
-    "url": "/covid19-hospital-tracker-app/static/js/2.79ecce94.chunk.js.LICENSE.txt"
+    "revision": "ec52105584c01a6b07b5957d1b80cb5c",
+    "url": "/covid19-hospital-tracker-app/static/js/2.bd286cc6.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "107dda36b01171329b83",
-    "url": "/covid19-hospital-tracker-app/static/js/main.00f77abc.chunk.js"
+    "revision": "d00a471a5799044200a5",
+    "url": "/covid19-hospital-tracker-app/static/js/main.e6af1a92.chunk.js"
   },
   {
     "revision": "27f479bc744f02ce0a17",
@@ -32,6 +32,14 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/covid19-hospital-tracker-app/static/media/ambulance2.e72a7e98.png"
   },
   {
+    "revision": "150f9bdfadd5c2ba94eb2e513c4d15b0",
+    "url": "/covid19-hospital-tracker-app/static/media/hosp_header.150f9bdf.jpg"
+  },
+  {
+    "revision": "ec8aec7e840686e4a9caed865ed556f6",
+    "url": "/covid19-hospital-tracker-app/static/media/hospital_bg.ec8aec7e.jpg"
+  },
+  {
     "revision": "d64636ff86dac68e4bd6979d63ddda06",
     "url": "/covid19-hospital-tracker-app/static/media/loc_headBg.d64636ff.jpg"
   },
@@ -42,5 +50,9 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "24b615381c441d2f48b6b9e8aa95ac88",
     "url": "/covid19-hospital-tracker-app/static/media/mbl_bck_1.24b61538.jpg"
+  },
+  {
+    "revision": "a389f7d8f8f9723d7376f1496eff5d97",
+    "url": "/covid19-hospital-tracker-app/static/media/set_header.a389f7d8.jpg"
   }
 ]);
