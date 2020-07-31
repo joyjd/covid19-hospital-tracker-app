@@ -38,7 +38,108 @@ export const HospitalModalDetailTemplate = (props) => {
 
   return (
     <div>
-      <div className='m_b_10'>
+      {props.data != undefined ? (
+        <div class='ribbon'>
+          <span>
+            <StarIcon fontSize='small' />
+            {props.data.rating}
+          </span>
+        </div>
+      ) : null}
+      <Paper elevation={3}>
+        <div className='hosp_detailContainer'>
+          <div className='covidInfoBody'>
+            <div>
+              <Avatar variant='rounded' className={classes.smallGreen}>
+                <HotelIcon fontSize='small' />
+              </Avatar>
+            </div>
+            <div className='displayData displayFlex'>
+              <Typography>
+                <span className='covidNumberLabel'>{props.c_bed}</span>
+              </Typography>
+
+              <Typography color='textSecondary'> vacant COVID-19 beds *</Typography>
+            </div>
+          </div>
+          <Typography component='div' className='m_t_-5'>
+            <Box fontStyle='italic' m={1}>
+              <div className='disclaimerCovid'>*data displayed as per WB Government</div>
+            </Box>
+          </Typography>
+          <div className='hospInfoBody'>
+            {props.data != undefined ? (
+              <div className='displayFlex '>
+                <div>
+                  <BusinessIcon fontSize='small' />
+                </div>
+                <div className='displayData'>{props.data.formatted_address}</div>
+              </div>
+            ) : null}
+
+            {props.data != undefined ? (
+              <div className='displayFlex '>
+                <div>
+                  <PhoneInTalkIcon fontSize='small' />
+                </div>
+                <div className='displayData'>
+                  <a href='tel:{props.data.formatted_phone_number}'>{props.data.formatted_phone_number} </a> / <a href='tel:{props.data.international_phone_number}'> {props.data.international_phone_number}</a>
+                </div>
+              </div>
+            ) : null}
+            {props.data != undefined ? (
+              <div className='displayFlex '>
+                <div>
+                  <LanguageIcon fontSize='small' />
+                </div>
+                <div className='displayData'>
+                  <a href='{props.data.website}'>{props.data.website} </a>
+                </div>
+              </div>
+            ) : null}
+            {props.data != undefined ? (
+              <div className='mapcontainerHospital'>
+                <GoogleMaps currentLat={props.data.geometry.location.lat} currentLong={props.data.geometry.location.lng}></GoogleMaps>
+              </div>
+            ) : null}
+            {props.h_dist != "" ? (
+              <div className='displayFlex m_tb_5'>
+                <div className='displayFlex'>
+                  <CommuteIcon />
+                  <DirectionsWalkIcon fontSize='small' />
+                </div>
+                <div className='displayData'>Tentatively {props.h_dist} Km away from you</div>
+              </div>
+            ) : null}
+          </div>
+        </div>
+      </Paper>
+      <div className='dividerCont'>
+        <Divider />
+      </div>
+      {props.data != undefined ? (
+        <div>
+          <div className='displayFlex m_tb_10'>
+            <div>
+              <RateReviewIcon fontSize='small' />
+            </div>
+            <div className='displayData fontBold'>User Reviews</div>
+          </div>
+          <div className='reviewContainer'>
+            {props.data.reviews.map((rv) => (
+              <Card className='m_b_6 cardReviews'>
+                <CardHeader avatar={<Avatar src={rv.profile_photo_url}></Avatar>} title={rv.author_name} subheader={rv.relative_time_description} />
+                <CardContent>
+                  <Typography variant='body2' color='textSecondary' component='p'>
+                    {rv.text}
+                  </Typography>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      ) : null}
+      {/* <div className='m_b_10'>
         <Paper elevation={3}>
           <div className='displayFlex p_all_5'>
             <div>
@@ -140,7 +241,7 @@ export const HospitalModalDetailTemplate = (props) => {
             ))}
           </div>
         </div>
-      ) : null}
+      ) : null} */}
     </div>
   );
 };

@@ -1,25 +1,20 @@
 import React from "react";
 import { HospitalItem } from "./../HospitalItem/HospitalItem.component";
-import { KeywordLabel } from "./../KeywordLabel/KeywordLabel.component";
+
 import "./../HospitalZoneContainer/HospitalZone.style.scss";
-import Card from "@material-ui/core/Card";
-import CardHeader from "@material-ui/core/CardHeader";
-import CardContent from "@material-ui/core/CardContent";
+
 import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
-import Box from "@material-ui/core/Box";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
-import IconButton from "@material-ui/core/IconButton";
-import Avatar from "@material-ui/core/Avatar";
+
 import ResponsiveDialog from "../../../utils/Modals/Modals.component";
 import { CommunicatorFetch, apiKey, p_idList } from "./../../Communicator/Communicator.component";
 import hospitalDetailsData from "./../../../assets/hospitalDetailsData";
 import ApiUrls from "../../../utils/ApiUrls.data";
 import { HospitalModalDetailTemplate } from "./../../../utils/Modals/HospitalModalDetailTemplate.component";
 import ExposureIcon from "@material-ui/icons/Exposure";
-import SelectAllIcon from "@material-ui/icons/SelectAll";
+
 import Button from "@material-ui/core/Button";
-import { ExpandContract } from "./../../../utils/ExpandContract/ExpandContract.component";
+
 import LocalHospitalIcon from "@material-ui/icons/LocalHospital";
 import TextField from "@material-ui/core/TextField";
 import SearchIcon from "@material-ui/icons/Search";
@@ -363,86 +358,7 @@ export class HospitalZone extends React.Component {
 
     return (
       <div>
-        {/* <Card className='cardGeneric '>
-          <CardContent>
-            <div id='cont_FilterHospitalZones' className={aval_Filters.length < 3 ? "" : "excerpt-hidden"}>
-              <div className='displayFlex'>
-                <Typography color='textSecondary'>
-                  <ExposureIcon />
-                </Typography>
-                <Typography color='textSecondary'>Filter Hospitals By Area/Zones({aval_Filters.length})</Typography>
-              </div>
-              <div className='availableHospitalZones'>
-                {aval_Filters.map((elem, index) => (
-                  <KeywordLabel key={index} item={elem} type={this.tagAction.add} onClick={(e, el) => this.handleAddRemoveFilter(e, el)}></KeywordLabel>
-                ))}
-              </div>
-            </div>
-            {aval_Filters.length < 3 ? null : (
-              <div className='expandContractContainer'>
-                <ExpandContract data={this.state.cont_FilterHospitalZones} parentId={"cont_FilterHospitalZones"} onClick={(el) => this.handleExpansionContraction(el)} />
-              </div>
-            )}
-          </CardContent>
-        </Card>
-        <Card className='cardGeneric'>
-          <CardContent>
-            <div id='cont_SelectedHospitalZones' className={this.state.selectedZones.length > 5 ? "excerpt-visible" : ""}>
-              <div className='displayFlex'>
-                <Typography color='textSecondary'>
-                  <SelectAllIcon />
-                </Typography>
-                <Typography color='textSecondary'>
-                  <strong>Selected Hospital Zones({this.state.selectedZones.length})</strong>
-                </Typography>
-              </div>
-              <div className='selectedH_ZonesContainer'>
-                {this.state.selectedZones.map((el) => (
-                  <KeywordLabel key={el} item={el} type={this.tagAction.remove} onClick={(e, el) => this.handleAddRemoveFilter(e, el)}></KeywordLabel>
-                ))}
-              </div>
-            </div>
-            {this.state.selectedZones.length > 4 ? (
-              <div className='expandContractContainer'>
-                <ExpandContract data={this.state.cont_SelectedHospitalZones} parentId={"cont_SelectedHospitalZones"} onClick={(el) => this.handleExpansionContraction(el)} />
-              </div>
-            ) : null}
-          </CardContent>
-        </Card>
- */}
         <Paper elevation={3} className='transparentBorder' id='containerHospitalList'>
-          {/* <CardHeader
-            avatar={
-              <Avatar variant='square' aria-label='recipe' className='hospitalAvatar'>
-                <LocalHospitalIcon color='secondary' />
-              </Avatar>
-            }
-            /* action={
-              <IconButton aria-label='settings' onClick={() => this.handleOpenFilter()}>
-                <MoreVertIcon />
-              </IconButton>
-            } */
-          /*  title={
-              <strong>
-                <span className='font_l'>Hospitals Found ({this.state.selectedHospitalList.length})*</span>
-              </strong>
-            }
-            subheader={
-              <Box fontStyle='italic' m={1} className='m_all_0'>
-                {this.state.searchText == "" ? (
-                  <div className='displayFlex'>
-                    <div>*</div>
-                    <div>listed as per selected hospital zones</div>
-                  </div>
-                ) : (
-                  <div className='displayFlex'>
-                    <div>*</div>
-                    <div>listed as per selected hospital zones</div>
-                  </div>
-                )}
-              </Box>
-            }
-          ></CardHeader> */}
           <div className='hospitalTitleContainer'>
             <div className='hospitalIconholder transparentBorder'>
               <DomainTwoToneIcon fontSize='large' color='primary'></DomainTwoToneIcon>

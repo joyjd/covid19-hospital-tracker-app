@@ -280,56 +280,72 @@ class App extends React.Component {
   };
 
   getFormattedAddress = (lat, long) => {
-    CommunicatorFetch(APiUrls.getUserCurrentLocation, lat + "," + long).then(
-      (data) => {
-        // this.handleBackDropClose();
-        if (data.results.length != 0) {
-          localStorage.setItem("CV19Tracker_lat", data.results[0].geometry.location.lat);
-          localStorage.setItem("CV19Tracker_long", data.results[0].geometry.location.lng);
-          this.setState(
-            {
-              formattedAddress: data.results[0].formatted_address,
-              compoundAddress: data.plus_code.compound_code,
-              addressComponents: Object.assign([], data.results[0].address_components),
-              locationCoordinates_lat: data.results[0].geometry.location.lat,
-              locationCoordinates_long: data.results[0].geometry.location.lng,
-            },
-            () => this.handleBackDropClose()
-          );
-        } else {
-          // Google denied Map, hence need to show proper error messages
+    if (localStorage.getItem("CV19Tracker_lat") && localStorage.getItem("CV19Tracker_long") && localStorage.getItem("CV19Tracker_detail") && localStorage.getItem("CV19Tracker_lat") == lat && localStorage.getItem("CV19Tracker_long") == long) {
+      let data = JSON.parse(localStorage.getItem("CV19Tracker_detail"));
+      this.setState(
+        {
+          formattedAddress: data.formatted_address,
+          compoundAddress: "",
+          addressComponents: Object.assign([], data.address_components),
+          locationCoordinates_lat: data.geometry.location.lat,
+          locationCoordinates_long: data.geometry.location.lng,
+        },
+        () => this.handleBackDropClose()
+      );
+    } else {
+      CommunicatorFetch(APiUrls.getUserCurrentLocation, lat + "," + long).then(
+        (data) => {
+          // this.handleBackDropClose();
+          if (data.results.length != 0) {
+            localStorage.setItem("CV19Tracker_lat", data.results[0].geometry.location.lat);
+            localStorage.setItem("CV19Tracker_long", data.results[0].geometry.location.lng);
+            localStorage.setItem("CV19Tracker_detail", JSON.stringify(data.results[0]));
+            this.setState(
+              {
+                formattedAddress: data.results[0].formatted_address,
+                compoundAddress: data.plus_code.compound_code,
+                addressComponents: Object.assign([], data.results[0].address_components),
+                locationCoordinates_lat: data.results[0].geometry.location.lat,
+                locationCoordinates_long: data.results[0].geometry.location.lng,
+              },
+              () => this.handleBackDropClose()
+            );
+          } else {
+            // Google denied Map, hence need to show proper error messages
 
+            //current implementation for DEV purposes
+            localStorage.setItem("CV19Tracker_lat", dummyData.results[0].geometry.location.lat);
+            localStorage.setItem("CV19Tracker_long", dummyData.results[0].geometry.location.lng);
+            localStorage.setItem("CV19Tracker_detail", JSON.stringify(dummyData.results[0]));
+            this.setState(
+              {
+                formattedAddress: dummyData.results[0].formatted_address,
+                compoundAddress: dummyData.plus_code.compound_code,
+                addressComponents: Object.assign([], dummyData.results[0].address_components),
+                locationCoordinates_lat: dummyData.results[0].geometry.location.lat,
+                locationCoordinates_long: dummyData.results[0].geometry.location.lng,
+              },
+              () => this.handleBackDropClose()
+            );
+          }
+        },
+        (error) => {
+          // Google Web api failed, hence need to show proper error messages
           //current implementation for DEV purposes
-          localStorage.setItem("CV19Tracker_lat", dummyData.results[0].geometry.location.lat);
-          localStorage.setItem("CV19Tracker_long", dummyData.results[0].geometry.location.lng);
+
           this.setState(
             {
               formattedAddress: dummyData.results[0].formatted_address,
               compoundAddress: dummyData.plus_code.compound_code,
               addressComponents: Object.assign([], dummyData.results[0].address_components),
-              locationCoordinates_lat: dummyData.results[0].geometry.location.lat,
-              locationCoordinates_long: dummyData.results[0].geometry.location.lng,
+              locationCoordinates_lat: lat,
+              locationCoordinates_long: long,
             },
             () => this.handleBackDropClose()
           );
         }
-      },
-      (error) => {
-        // Google Web api failed, hence need to show proper error messages
-        //current implementation for DEV purposes
-
-        this.setState(
-          {
-            formattedAddress: dummyData.results[0].formatted_address,
-            compoundAddress: dummyData.plus_code.compound_code,
-            addressComponents: Object.assign([], dummyData.results[0].address_components),
-            locationCoordinates_lat: lat,
-            locationCoordinates_long: long,
-          },
-          () => this.handleBackDropClose()
-        );
-      }
-    );
+      );
+    }
   };
 
   handleCloseWelcomeAlert = (el) => {

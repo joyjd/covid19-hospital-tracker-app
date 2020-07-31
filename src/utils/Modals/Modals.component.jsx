@@ -16,8 +16,11 @@ export default function ResponsiveDialog(props) {
   return (
     <div>
       <Dialog fullScreen={fullScreen} open={props.open} onClose={props.handleClose} aria-labelledby='responsive-dialog-title'>
-        <div className='hospitalImageContainer'></div>
-        <DialogTitle id='responsive-dialog-title'>{props.headerTitle}</DialogTitle>
+        <div className='hospitalImageContainer'>
+          {/* <DialogTitle id='responsive-dialog-title'>{props.headerTitle}</DialogTitle> */}
+          <div className='hosp_headerTitleContainer'>{props.headerTitle}</div>
+        </div>
+
         <DialogContent>{props.body}</DialogContent>
         <DialogActions>
           <Button autoFocus onClick={() => props.onClose()} color='primary'>
