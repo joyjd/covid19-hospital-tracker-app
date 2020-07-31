@@ -231,6 +231,7 @@ export class HospitalZone extends React.Component {
           },
           (error) => {
             //handle error scenerio for first call
+            console.log("HospitalZoneComponent+ First call====p_id-=====ERROR !!!!!!");
           }
         )
         .then(
@@ -255,6 +256,7 @@ export class HospitalZone extends React.Component {
           },
           (error) => {
             // handle error scenerio for second call
+            console.log("HospitalZoneComponent+ Second call====details-=====ERROR !!!!!!");
           }
         );
     }
