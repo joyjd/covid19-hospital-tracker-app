@@ -29,6 +29,8 @@ import Paper from "@material-ui/core/Paper";
 import DomainTwoToneIcon from "@material-ui/icons/DomainTwoTone";
 import { StaticTagDisplayer } from "../../staticTagDisplayer/StaticTagDisplayer.component";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
+import FilterTags from "./../FilterAreaTags/FilterAreaTags.component";
+
 export class HospitalZone extends React.Component {
   tagAction = {
     add: "plus",
@@ -62,6 +64,7 @@ export class HospitalZone extends React.Component {
       searchText: "",
       searchEngine: null,
       openFilteralert: false,
+      areaTagsOption: false,
     };
     this.completeHospitalData = Object.assign({}, hospitalDetailsData);
   }
@@ -327,6 +330,33 @@ export class HospitalZone extends React.Component {
       );
     }
   };
+  handleOpenAreaTags = () => {
+    this.setState({
+      areaTagsOption: true,
+    });
+  };
+  handleCloseAreaTags = (el) => {
+    this.setState(
+      {
+        areaTagsOption: false,
+        searchText: "",
+      },
+      () => this.preparePostSearchSelectedZoneHospitalList()
+    );
+    if (el != "") {
+      let temp = [];
+      el.forEach((e) => {
+        if (this.props.hospitalLocationKeyMap[e]) {
+          temp = temp.concat(this.props.hospitalLocationKeyMap[e]);
+        }
+      });
+
+      this.setState({
+        selectedHospitalList: Object.assign([], temp),
+        selectedZones: Object.assign([], el),
+      });
+    }
+  };
 
   render() {
     const aval_Filters = this.state.totalZones.filter((el) => !this.state.selectedZones.includes(el));
@@ -433,7 +463,7 @@ export class HospitalZone extends React.Component {
               <SearchIcon />
             </div>
             <div className='searchContainer w_100'>
-              <TextField id='outlined-textarea' className='w_100' label='Search Hospitals By Name' placeholder='Find any COVID19 hospital ..' multiline variant='filled' type='search' onChange={(el) => this.handleSearchEngine(el)} />
+              <TextField type='search' id='outlined-textarea' value={this.state.searchText} className='w_100' label='Search Hospitals By Name' placeholder='Find any COVID19 hospital ..' variant='filled' onChange={(el) => this.handleSearchEngine(el)} />
             </div>
           </div>
 
@@ -441,21 +471,27 @@ export class HospitalZone extends React.Component {
             <Paper variant='outlined' square>
               <div className='btnCol'>
                 <ButtonGroup variant='contained' color='primary' aria-label='contained primary button group'>
-                  <Button className='customButtonText'>Select by Area / Zones</Button>
+                  <Button className='customButtonText' onClick={() => this.handleOpenAreaTags()}>
+                    Filter by Area / Zones
+                  </Button>
                   <Button className='customButtonText' onClick={() => this.handleOpenFilter()}>
                     Manage View
                   </Button>
                 </ButtonGroup>
               </div>
-              <div className='tagHeaderTitle'>
-                <Typography color='textSecondary'>
-                  <ExposureIcon fontSize='small' />
-                </Typography>
-                <Typography color='textSecondary'>Selected Areas / Zones ({this.state.selectedZones.length})</Typography>
-              </div>
-              <div>
-                <StaticTagDisplayer locationTags={this.state.selectedZones} />
-              </div>
+              {this.state.searchText == "" ? (
+                <div>
+                  <div className='tagHeaderTitle'>
+                    <Typography color='textSecondary'>
+                      <ExposureIcon fontSize='small' />
+                    </Typography>
+                    <Typography color='textSecondary'>Selected Areas / Zones ({this.state.selectedZones.length})</Typography>
+                  </div>
+                  <div>
+                    <StaticTagDisplayer locationTags={this.state.selectedZones} />
+                  </div>
+                </div>
+              ) : null}
             </Paper>
           </div>
 
@@ -469,7 +505,7 @@ export class HospitalZone extends React.Component {
             </div>
           </CardMedia>
         </Paper>
-
+        {aval_Filters.length != 0 && this.state.selectedZones.length != 0 ? <FilterTags open={this.state.areaTagsOption} totalList={aval_Filters} selectedList={this.state.selectedZones} onClose={(el) => this.handleCloseAreaTags(el)} /> : null}
         <ResponsiveDialog open={this.state.openModal} onClose={this.handleCloseModal} headerTitle={this.modalContent.headerTitle} body={this.modalContent.body} />
         <Filteralert open={this.state.openFilteralert} onClose={(el) => this.handleCloseAlert(el)} header={this.filterContent.header} body={this.filterContent.body} />
       </div>

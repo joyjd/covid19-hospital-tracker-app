@@ -46,7 +46,7 @@ export const HospitalItem = (props) => {
       <Table className={classes.table} aria-label='customized table'>
         <TableHead>
           <TableRow style={{ backgroundColor: "red", color: "white" }}>
-            <StyledTableCell>Covid19 Hospital</StyledTableCell>
+            <StyledTableCell>Covid19 Hospital({props.selectedHospitalList.length})</StyledTableCell>
             <StyledTableCell align='right'>Area</StyledTableCell>
             <StyledTableCell align='right'>Vacant Beds*</StyledTableCell>
             <StyledTableCell align='right'></StyledTableCell>

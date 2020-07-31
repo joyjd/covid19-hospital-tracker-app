@@ -183,7 +183,7 @@ class App extends React.Component {
     }
     //Fix for 24-parganas
     tempMap["North 24 Parganas"] = Object.assign([], tempMap["N-24 Pgs"].concat(tempMap["North 24 Pgs"]));
-    delete tempMap["N-24 Pgs."];
+    delete tempMap["N-24 Pgs"];
     delete tempMap["North 24 Pgs"];
     tempMap["North 24 Parganas"].forEach((elm) => (elm["h_zone"] = "North 24 Parganas"));
 

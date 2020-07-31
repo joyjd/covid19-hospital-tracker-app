@@ -60,7 +60,7 @@ export class LocationDisplayer extends React.Component {
       scrollTop: scrollTop,
     }); */
     //console.log(leftPosition);
-    if (leftPosition < -70) {
+    if (leftPosition < -75) {
       this.myRef2.current.style.left = leftPosition + 100 + "px";
     }
     /* if (leftPosition > -70) {
