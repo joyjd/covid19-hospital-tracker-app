@@ -39,7 +39,7 @@ export const HospitalModalDetailTemplate = (props) => {
   return (
     <div>
       {props.data != undefined ? (
-        <div class='ribbon'>
+        <div className='ribbon'>
           <span>
             <StarIcon fontSize='small' />
             {props.data.rating}
@@ -126,8 +126,8 @@ export const HospitalModalDetailTemplate = (props) => {
             <div className='displayData fontBold'>User Reviews</div>
           </div>
           <div className='reviewContainer'>
-            {props.data.reviews.map((rv) => (
-              <Card className='m_b_6 cardReviews'>
+            {props.data.reviews.map((rv, index) => (
+              <Card key={index} className='m_b_6 cardReviews'>
                 <CardHeader avatar={<Avatar src={rv.profile_photo_url}></Avatar>} title={rv.author_name} subheader={rv.relative_time_description} />
                 <CardContent>
                   <Typography variant='body2' color='textSecondary' component='p'>

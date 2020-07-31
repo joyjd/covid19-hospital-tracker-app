@@ -25,6 +25,7 @@ import DomainTwoToneIcon from "@material-ui/icons/DomainTwoTone";
 import { StaticTagDisplayer } from "../../staticTagDisplayer/StaticTagDisplayer.component";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 import FilterTags from "./../FilterAreaTags/FilterAreaTags.component";
+import BackDropCustom from "./../../../utils/BackDrop/BackDrop.component";
 
 export class HospitalZone extends React.Component {
   tagAction = {
@@ -60,6 +61,7 @@ export class HospitalZone extends React.Component {
       searchEngine: null,
       openFilteralert: false,
       areaTagsOption: false,
+      openZoneBackDrop: false,
     };
     this.completeHospitalData = Object.assign({}, hospitalDetailsData);
   }
@@ -157,7 +159,7 @@ export class HospitalZone extends React.Component {
     }
   };
   handleOpenModal = () => {
-    this.setState({ openModal: true });
+    this.setState({ openModal: true, openZoneBackDrop: false });
   };
 
   handleCloseModal = () => {
@@ -197,6 +199,14 @@ export class HospitalZone extends React.Component {
     this.setState({
       selectedHospitalList: tempSortData,
     });
+  };
+  handleHospitalDetailsPre = (h_name, h_zone, c_bed, h_dist) => {
+    this.setState(
+      {
+        openZoneBackDrop: true,
+      },
+      () => this.handleHospitalDetails(h_name, h_zone, c_bed, h_dist)
+    );
   };
 
   handleHospitalDetails = (h_name, h_zone, c_bed, h_dist) => {
@@ -330,7 +340,7 @@ export class HospitalZone extends React.Component {
       areaTagsOption: true,
     });
   };
-  handleCloseAreaTags = (el) => {
+  handleCloseAreaTags = (el, opt) => {
     this.setState(
       {
         areaTagsOption: false,
@@ -338,7 +348,7 @@ export class HospitalZone extends React.Component {
       },
       () => this.preparePostSearchSelectedZoneHospitalList()
     );
-    if (el != "") {
+    if (opt == "") {
       let temp = [];
       el.forEach((e) => {
         if (this.props.hospitalLocationKeyMap[e]) {
@@ -413,7 +423,7 @@ export class HospitalZone extends React.Component {
 
           <CardMedia>
             <div className='hospitalListHoldContainer'>
-              <HospitalItem selectedHospitalList={this.state.selectedHospitalList} onClick={(h_name, h_zone, c_bed, h_dist) => this.handleHospitalDetails(h_name, h_zone, c_bed, h_dist)} />
+              <HospitalItem selectedHospitalList={this.state.selectedHospitalList} onClick={(h_name, h_zone, c_bed, h_dist) => this.handleHospitalDetailsPre(h_name, h_zone, c_bed, h_dist)} />
             </div>
             <div className='disclaimerHospital'>
               <div>* Data displayed is as per WB Government website</div>
@@ -421,9 +431,11 @@ export class HospitalZone extends React.Component {
             </div>
           </CardMedia>
         </Paper>
-        {aval_Filters.length != 0 && this.state.selectedZones.length != 0 ? <FilterTags open={this.state.areaTagsOption} totalList={aval_Filters} selectedList={this.state.selectedZones} onClose={(el) => this.handleCloseAreaTags(el)} /> : null}
+        {aval_Filters.length != 0 && this.state.selectedZones.length != 0 ? <FilterTags open={this.state.areaTagsOption} totalList={aval_Filters} selectedList={this.state.selectedZones} onClose={(el, opt) => this.handleCloseAreaTags(el, opt)} /> : null}
+
         <ResponsiveDialog open={this.state.openModal} onClose={this.handleCloseModal} headerTitle={this.modalContent.headerTitle} body={this.modalContent.body} />
         <Filteralert open={this.state.openFilteralert} onClose={(el) => this.handleCloseAlert(el)} header={this.filterContent.header} body={this.filterContent.body} />
+        <BackDropCustom open={this.state.openZoneBackDrop}></BackDropCustom>
       </div>
     );
   }

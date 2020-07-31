@@ -21,8 +21,8 @@ export default class FilterTags extends React.Component {
 
   componentDidMount() {
     this.setState({
-      selectedTags: Object.assign([], this.props.selectedList),
-      leftTags: Object.assign([], this.props.totalList),
+      selectedTags: this.props.selectedList,
+      leftTags: this.props.totalList,
     });
   }
 
@@ -32,7 +32,7 @@ export default class FilterTags extends React.Component {
         selectedTags: Object.assign([], this.props.selectedList),
         leftTags: Object.assign([], this.props.totalList),
       },
-      () => this.props.onClose("")
+      () => this.props.onClose("", "cancel")
     );
   };
 
@@ -83,14 +83,14 @@ export default class FilterTags extends React.Component {
           <div className='chipsHolder'>
             {this.state.selectedTags.sort().map((el, index) => {
               return (
-                <div className='chipsKey'>
+                <div key={index} className='chipsKey'>
                   <Chip key={index} size='small' label={el} color='primary' onClick={() => this.handleFilterChange("del", el)} onDelete={() => this.handleDelete("del", el)} deleteIcon={<DoneIcon />} />
                 </div>
               );
             })}
             {this.state.leftTags.sort().map((el, index) => {
               return (
-                <div className='chipsKey'>
+                <div key={index} className='chipsKey'>
                   <Chip key={index} size='small' label={el} color='default' onClick={() => this.handleFilterChange("add", el)} onDelete={() => this.handleDelete("add", el)} deleteIcon={<AddIcon />} />
                 </div>
               );
@@ -100,7 +100,7 @@ export default class FilterTags extends React.Component {
             <Button variant='contained' color='primary' onClick={() => this.handleCancel()}>
               Cancel
             </Button>
-            <Button variant='contained' color='primary' onClick={() => this.props.onClose(this.state.selectedTags)}>
+            <Button variant='contained' color='primary' onClick={() => this.props.onClose(this.state.selectedTags, "")}>
               Apply Selection
             </Button>
           </div>
