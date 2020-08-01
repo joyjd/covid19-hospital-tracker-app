@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/covid19-hospital-tracker-app/static/css/main.fe3b7283.chunk.css",
-    "main.js": "/covid19-hospital-tracker-app/static/js/main.2b2cb051.chunk.js",
-    "main.js.map": "/covid19-hospital-tracker-app/static/js/main.2b2cb051.chunk.js.map",
+    "main.js": "/covid19-hospital-tracker-app/static/js/main.04390154.chunk.js",
+    "main.js.map": "/covid19-hospital-tracker-app/static/js/main.04390154.chunk.js.map",
     "runtime-main.js": "/covid19-hospital-tracker-app/static/js/runtime-main.18ec90f1.js",
     "runtime-main.js.map": "/covid19-hospital-tracker-app/static/js/runtime-main.18ec90f1.js.map",
     "static/js/2.7ebfe8b9.chunk.js": "/covid19-hospital-tracker-app/static/js/2.7ebfe8b9.chunk.js",
     "static/js/2.7ebfe8b9.chunk.js.map": "/covid19-hospital-tracker-app/static/js/2.7ebfe8b9.chunk.js.map",
     "index.html": "/covid19-hospital-tracker-app/index.html",
-    "precache-manifest.5eb1d129bc46c613f16ac40612c2c3c9.js": "/covid19-hospital-tracker-app/precache-manifest.5eb1d129bc46c613f16ac40612c2c3c9.js",
+    "precache-manifest.741fd3ec1dd7a4e609b1239f6f788858.js": "/covid19-hospital-tracker-app/precache-manifest.741fd3ec1dd7a4e609b1239f6f788858.js",
     "service-worker.js": "/covid19-hospital-tracker-app/service-worker.js",
     "static/css/main.fe3b7283.chunk.css.map": "/covid19-hospital-tracker-app/static/css/main.fe3b7283.chunk.css.map",
     "static/js/2.7ebfe8b9.chunk.js.LICENSE.txt": "/covid19-hospital-tracker-app/static/js/2.7ebfe8b9.chunk.js.LICENSE.txt",
@@ -22,6 +22,6 @@
     "static/js/runtime-main.18ec90f1.js",
     "static/js/2.7ebfe8b9.chunk.js",
     "static/css/main.fe3b7283.chunk.css",
-    "static/js/main.2b2cb051.chunk.js"
+    "static/js/main.04390154.chunk.js"
   ]
 }

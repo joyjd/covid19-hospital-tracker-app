@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "ebfbb9a4610bb286abc037081fbec83b",
+    "revision": "2eef5da26d3229345dd835460e4729df",
     "url": "/covid19-hospital-tracker-app/index.html"
   },
   {
-    "revision": "8f4040013ca10e38af37",
+    "revision": "4c0254330a84ea77875f",
     "url": "/covid19-hospital-tracker-app/static/css/main.fe3b7283.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/covid19-hospital-tracker-app/static/js/2.7ebfe8b9.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "8f4040013ca10e38af37",
-    "url": "/covid19-hospital-tracker-app/static/js/main.2b2cb051.chunk.js"
+    "revision": "4c0254330a84ea77875f",
+    "url": "/covid19-hospital-tracker-app/static/js/main.04390154.chunk.js"
   },
   {
     "revision": "27f479bc744f02ce0a17",
