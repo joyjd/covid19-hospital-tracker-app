@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "2e2803ad3737b8ea86eda7673be0898d",
+    "revision": "ebfbb9a4610bb286abc037081fbec83b",
     "url": "/covid19-hospital-tracker-app/index.html"
   },
   {
-    "revision": "73286ff1d365a9517086",
+    "revision": "8f4040013ca10e38af37",
     "url": "/covid19-hospital-tracker-app/static/css/main.fe3b7283.chunk.css"
   },
   {
-    "revision": "85277074acf3fa865c6a",
-    "url": "/covid19-hospital-tracker-app/static/js/2.bd286cc6.chunk.js"
+    "revision": "df17c77db8c286a711e1",
+    "url": "/covid19-hospital-tracker-app/static/js/2.7ebfe8b9.chunk.js"
   },
   {
     "revision": "ec52105584c01a6b07b5957d1b80cb5c",
-    "url": "/covid19-hospital-tracker-app/static/js/2.bd286cc6.chunk.js.LICENSE.txt"
+    "url": "/covid19-hospital-tracker-app/static/js/2.7ebfe8b9.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "73286ff1d365a9517086",
-    "url": "/covid19-hospital-tracker-app/static/js/main.88b95d2d.chunk.js"
+    "revision": "8f4040013ca10e38af37",
+    "url": "/covid19-hospital-tracker-app/static/js/main.2b2cb051.chunk.js"
   },
   {
     "revision": "27f479bc744f02ce0a17",
