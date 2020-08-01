@@ -22,10 +22,10 @@ export class HospitalTracker extends React.Component {
     let finalTags = this.props.arrayData.filter((dataElem) => {
       return !dataElem.types.some((el) => exclusiveKeywords.includes(el));
     });
-
+    // finalTags = [...new Set(finalTags)];
     this.setState(
       {
-        locationTags: finalTags.map((el) => el["long_name"]).filter((el) => el !== "West Bengal"),
+        locationTags: [...new Set(finalTags.map((el) => el["long_name"]).filter((el) => el !== "West Bengal"))],
       },
       () => this.prepareSelectedZoneHospitalList()
     );

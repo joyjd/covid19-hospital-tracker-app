@@ -17,8 +17,8 @@ import { LocationDisplayer } from "./components/LocationDisplayer/LocationDispla
 import { HospitalTracker } from "./components/HospitalTracker/HospitalTracker.component";
 import { CommunicatorFetch, dummyData } from "./components/Communicator/Communicator.component";
 import APiUrls from "./utils/ApiUrls.data";
-import hospitalData from "./assets/hospitalData";
-import hospitalDetailsData from "./assets/hospitalDetailsData";
+/* import hospitalData from "./assets/hospitalData";
+import hospitalDetailsData from "./assets/hospitalDetailsData"; */
 import { Header } from "./components/Header/Header.component";
 import Backdrop from "@material-ui/core/Backdrop";
 import CircularProgress from "@material-ui/core/CircularProgress";
@@ -99,9 +99,21 @@ class App extends React.Component {
     );
   }
 
+  prepareHospitalData = () => {
+    CommunicatorFetch(APiUrls.getHospitalCodes, "")
+      .then((data) => {
+        let tempArr = data.filter((elem) => Object.keys(elem).length >= 4).filter((el) => el["vacant"] != 0 && typeof el["vacant"] !== "string");
+        this.hospitalList = Object.assign([], tempArr);
+      })
+      .then(() => CommunicatorFetch(APiUrls.getHospitalDetails, ""))
+      .then((data) => {
+        this.arrangeHospitalKeyMap(data);
+      });
+  };
   getLocationTrack = () => {
     if (navigator.geolocation) {
-      navigator.geolocation.watchPosition(
+      navigator.geolocation.getCurrentPosition(
+        //watchPosition(
         (pos) => {
           if (pos.coords.latitude != this.state.locationCoordinates_lat && pos.coords.longitude != this.state.locationCoordinates_long) {
             console.log(pos.coords.latitude);
@@ -127,55 +139,64 @@ class App extends React.Component {
     }
   };
 
-  prepareHospitalData = () => {
-    let tempArr = hospitalData.filter((elem) => Object.keys(elem).length >= 4).filter((el) => el["__EMPTY_3"] != 0 && typeof el["__EMPTY_3"] !== "string");
-    this.hospitalList = Object.assign([], tempArr);
-    //make a fetch call for hospitalsDetailsData and then link arrangeHospitalKeyMap()
-
-    this.arrangeHospitalKeyMap();
-  };
-
-  arrangeHospitalKeyMap() {
+  arrangeHospitalKeyMap(data) {
     //console.log(this.state.hospitalList);
+    let hospitalDetailsData = data;
+    let tempDup = {};
     let tempMap = {};
-    for (let i = 0, j = this.hospitalList.length - 1; i <= this.hospitalList.length / 2, j >= this.hospitalList.length / 2; i++, --j) {
-      if (tempMap[this.hospitalList[i]["__EMPTY"]]) {
-        //if(tempMap[this.hospitalList[i]["__EMPTY"]].filter( (row)=> row["__EMPTY_1"] ==this.hospitalList[i]["__EMPTY_1"] ).length == 0){}
-
-        tempMap[this.hospitalList[i]["__EMPTY"]].push({
-          h_name: this.hospitalList[i]["__EMPTY_1"],
-          c_bed: this.hospitalList[i]["__EMPTY_3"],
-          h_zone: this.hospitalList[i]["__EMPTY"],
-          h_loc: hospitalDetailsData[this.hospitalList[i]["__EMPTY_1"]] ? (hospitalDetailsData[this.hospitalList[i]["__EMPTY_1"]]["geometry"] ? hospitalDetailsData[this.hospitalList[i]["__EMPTY_1"]]["geometry"]["location"] : "") : "",
+    for (let i = 0, j = this.hospitalList.length - 1; i <= this.hospitalList.length / 2, j >= this.hospitalList.length / 2; i++, j--) {
+      if (tempMap[this.hospitalList[i]["district"]]) {
+        //if(tempMap[this.hospitalList[i]["district"]].filter( (row)=> row["name"] ==this.hospitalList[i]["name"] ).length == 0){}
+        /* console.log(tempMap[this.hospitalList[i]["district"]].filter((row) => row["name"] == this.hospitalList[i]["name"]).length == 0);
+        console.log(this.hospitalList[i]["name"]);
+        tempDup[this.hospitalList[i]["name"]] ? (tempDup[this.hospitalList[i]["name"]] += 1) : (tempDup[this.hospitalList[i]["name"]] = 1);
+        if (tempMap[this.hospitalList[j]["district"]]) {
+          console.log(tempMap[this.hospitalList[j]["district"]].filter((row) => row["name"] == this.hospitalList[i]["name"]).length == 0);
+          console.log(this.hospitalList[i]["name"]);
+          tempDup[this.hospitalList[i]["name"]] ? (tempDup[this.hospitalList[i]["name"]] += 1) : (tempDup[this.hospitalList[i]["name"]] = 1);
+        } */
+        tempMap[this.hospitalList[i]["district"]].push({
+          h_name: this.hospitalList[i]["name"],
+          c_bed: this.hospitalList[i]["vacant"],
+          h_zone: this.hospitalList[i]["district"],
+          h_loc: hospitalDetailsData[this.hospitalList[i]["name"]] ? (hospitalDetailsData[this.hospitalList[i]["name"]]["geometry"] ? hospitalDetailsData[this.hospitalList[i]["name"]]["geometry"]["location"] : "") : "",
           h_dist: "",
         });
       } else {
-        tempMap[this.hospitalList[i]["__EMPTY"]] = [
+        tempMap[this.hospitalList[i]["district"]] = [
           {
-            h_name: this.hospitalList[i]["__EMPTY_1"],
-            c_bed: this.hospitalList[i]["__EMPTY_3"],
-            h_zone: this.hospitalList[i]["__EMPTY"],
-            h_loc: hospitalDetailsData[this.hospitalList[i]["__EMPTY_1"]] ? (hospitalDetailsData[this.hospitalList[i]["__EMPTY_1"]]["geometry"] ? hospitalDetailsData[this.hospitalList[i]["__EMPTY_1"]]["geometry"]["location"] : "") : "",
+            h_name: this.hospitalList[i]["name"],
+            c_bed: this.hospitalList[i]["vacant"],
+            h_zone: this.hospitalList[i]["district"],
+            h_loc: hospitalDetailsData[this.hospitalList[i]["name"]] ? (hospitalDetailsData[this.hospitalList[i]["name"]]["geometry"] ? hospitalDetailsData[this.hospitalList[i]["name"]]["geometry"]["location"] : "") : "",
             h_dist: "",
           },
         ];
       }
 
-      if (tempMap[this.hospitalList[j]["__EMPTY"]]) {
-        tempMap[this.hospitalList[j]["__EMPTY"]].push({
-          h_name: this.hospitalList[j]["__EMPTY_1"],
-          c_bed: this.hospitalList[j]["__EMPTY_3"],
-          h_zone: this.hospitalList[j]["__EMPTY"],
-          h_loc: hospitalDetailsData[this.hospitalList[j]["__EMPTY_1"]] ? (hospitalDetailsData[this.hospitalList[j]["__EMPTY_1"]]["geometry"] ? hospitalDetailsData[this.hospitalList[j]["__EMPTY_1"]]["geometry"]["location"] : "") : "",
+      if (tempMap[this.hospitalList[j]["district"]]) {
+        /* console.log(tempMap[this.hospitalList[j]["district"]].filter((row) => row["name"] == this.hospitalList[j]["name"]).length == 0);
+        console.log(this.hospitalList[j]["name"]);
+        tempDup[this.hospitalList[j]["name"]] ? (tempDup[this.hospitalList[j]["name"]] += 1) : (tempDup[this.hospitalList[j]["name"]] = 1);
+        if (tempMap[this.hospitalList[i]["district"]]) {
+          console.log(tempMap[this.hospitalList[i]["district"]].filter((row) => row["name"] == this.hospitalList[j]["name"]).length == 0);
+          console.log(this.hospitalList[j]["name"]);
+          tempDup[this.hospitalList[j]["name"]] ? (tempDup[this.hospitalList[j]["name"]] += 1) : (tempDup[this.hospitalList[j]["name"]] = 1);
+        } */
+        tempMap[this.hospitalList[j]["district"]].push({
+          h_name: this.hospitalList[j]["name"],
+          c_bed: this.hospitalList[j]["vacant"],
+          h_zone: this.hospitalList[j]["district"],
+          h_loc: hospitalDetailsData[this.hospitalList[j]["name"]] ? (hospitalDetailsData[this.hospitalList[j]["name"]]["geometry"] ? hospitalDetailsData[this.hospitalList[j]["name"]]["geometry"]["location"] : "") : "",
           h_dist: "",
         });
       } else {
-        tempMap[this.hospitalList[j]["__EMPTY"]] = [
+        tempMap[this.hospitalList[j]["district"]] = [
           {
-            h_name: this.hospitalList[j]["__EMPTY_1"],
-            c_bed: this.hospitalList[j]["__EMPTY_3"],
-            h_zone: this.hospitalList[j]["__EMPTY"],
-            h_loc: hospitalDetailsData[this.hospitalList[j]["__EMPTY_1"]] ? (hospitalDetailsData[this.hospitalList[j]["__EMPTY_1"]]["geometry"] ? hospitalDetailsData[this.hospitalList[j]["__EMPTY_1"]]["geometry"]["location"] : "") : "",
+            h_name: this.hospitalList[j]["name"],
+            c_bed: this.hospitalList[j]["vacant"],
+            h_zone: this.hospitalList[j]["district"],
+            h_loc: hospitalDetailsData[this.hospitalList[j]["name"]] ? (hospitalDetailsData[this.hospitalList[j]["name"]]["geometry"] ? hospitalDetailsData[this.hospitalList[j]["name"]]["geometry"]["location"] : "") : "",
             h_dist: "",
           },
         ];
@@ -187,9 +208,17 @@ class App extends React.Component {
     delete tempMap["North 24 Pgs"];
     tempMap["North 24 Parganas"].forEach((elm) => (elm["h_zone"] = "North 24 Parganas"));
 
+    //Remove double entries
+    Object.keys(tempMap).forEach((districtName) => {
+      let tempArr = [];
+      tempMap[districtName].forEach((hosp_obj) => {});
+    });
+
     //this.setState({ hospitalLocationKeyMap: tempMap }, () => console.log(this.state.hospitalLocationKeyMap));
     this.hospitalLocationKeyMap = tempMap;
-    // this.setState({ hospitalDataPrep: !this.state.hospitalDataPrep });
+
+    // console.log(tempDup);
+    //console.log(Object.keys(tempDup).length);
   }
   searchGoogleForUserDetails = (el) => {
     let searchText = "" + el.locality + "," + el.district + "," + el.pin + ",West Bengal,India";
@@ -280,7 +309,7 @@ class App extends React.Component {
   };
 
   getFormattedAddress = (lat, long) => {
-    if (localStorage.getItem("CV19Tracker_lat") && localStorage.getItem("CV19Tracker_long") && localStorage.getItem("CV19Tracker_detail") && localStorage.getItem("CV19Tracker_lat") == lat && localStorage.getItem("CV19Tracker_long") == long) {
+    if (localStorage.getItem("CV19Tracker_lat") && localStorage.getItem("CV19Tracker_long") && localStorage.getItem("CV19Tracker_detail") && Number(localStorage.getItem("CV19Tracker_lat")) == lat && Number(localStorage.getItem("CV19Tracker_long")) == long) {
       let data = JSON.parse(localStorage.getItem("CV19Tracker_detail"));
       this.setState(
         {

@@ -8,7 +8,7 @@ import { StaticTagDisplayer } from "../staticTagDisplayer/StaticTagDisplayer.com
 import { CommunicatorFetch } from "./../Communicator/Communicator.component";
 import APiUrls from "./../../utils/ApiUrls.data";
 
-const exclusiveKeywords = ["postal_code", "country"];
+const exclusiveKeywords = ["country"];
 
 export class LocationDisplayer extends React.Component {
   ambulanceTravelNode = null;
@@ -87,9 +87,9 @@ export class LocationDisplayer extends React.Component {
     let finalTags = this.props.addressDetails.addressComponents.filter((dataElem) => {
       return !dataElem.types.some((el) => exclusiveKeywords.includes(el));
     });
-
+    // finalTags = [...new Set(finalTags)];
     this.setState({
-      locationTags: finalTags.map((el) => el["long_name"]).filter((el) => el !== "West Bengal"),
+      locationTags: [...new Set(finalTags.map((el) => el["long_name"]).filter((el) => el !== "West Bengal"))],
     });
   };
   render() {

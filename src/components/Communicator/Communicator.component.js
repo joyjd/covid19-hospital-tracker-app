@@ -4,7 +4,7 @@ import GoogleCredentials from "./../../utils/GoogleCredentials";
 export const apiKey = "&key=" + GoogleCredentials.apiKey;
 const proxyurl = "https://cors-anywhere.herokuapp.com/";
 
-export const dummyData = {
+export const dummyData1 = {
   plus_code: {
     compound_code: "HFJ8+GQ Kolkata, West Bengal, India",
     global_code: "7MJCHFJ8+GQ",
@@ -876,6 +876,526 @@ export const p_idList = [
   "ChIJi_QdV851AjoR0i_iwmaqSbU",
   "ChIJ10GfgrE-tokRCFVRW0SXNJg",
 ];
+
+export const dummyData = {
+  plus_code: {
+    compound_code: "G94X+27 Kolkata, West Bengal, India",
+    global_code: "7MJCG94X+27",
+  },
+  results: [
+    {
+      address_components: [
+        {
+          long_name: "164",
+          short_name: "164",
+          types: ["premise"],
+        },
+        {
+          long_name: "North Purbachal",
+          short_name: "North Purbachal",
+          types: ["political", "sublocality", "sublocality_level_2"],
+        },
+        {
+          long_name: "Haltu",
+          short_name: "Haltu",
+          types: ["political", "sublocality", "sublocality_level_1"],
+        },
+        {
+          long_name: "Kolkata",
+          short_name: "Kolkata",
+          types: ["locality", "political"],
+        },
+        {
+          long_name: "Kolkata",
+          short_name: "Kolkata",
+          types: ["administrative_area_level_2", "political"],
+        },
+        {
+          long_name: "West Bengal",
+          short_name: "WB",
+          types: ["administrative_area_level_1", "political"],
+        },
+        {
+          long_name: "India",
+          short_name: "IN",
+          types: ["country", "political"],
+        },
+        {
+          long_name: "700078",
+          short_name: "700078",
+          types: ["postal_code"],
+        },
+      ],
+      formatted_address: "164, North Purbachal, Haltu, Kolkata, West Bengal 700078, India",
+      geometry: {
+        location: {
+          lat: 22.5049706,
+          lng: 88.398302,
+        },
+        location_type: "ROOFTOP",
+        viewport: {
+          northeast: {
+            lat: 22.5063195802915,
+            lng: 88.39965098029151,
+          },
+          southwest: {
+            lat: 22.5036216197085,
+            lng: 88.39695301970849,
+          },
+        },
+      },
+      place_id: "ChIJGw3mY1dxAjoRZK3Txut_nxM",
+      plus_code: {
+        compound_code: "G93X+X8 Haltu, Kolkata, West Bengal, India",
+        global_code: "7MJCG93X+X8",
+      },
+      types: ["street_address"],
+    },
+    {
+      address_components: [
+        {
+          long_name: "Purbachal Kalitala Road",
+          short_name: "Purbachal Kalitala Rd",
+          types: ["route"],
+        },
+        {
+          long_name: "North Purbachal",
+          short_name: "North Purbachal",
+          types: ["political", "sublocality", "sublocality_level_2"],
+        },
+        {
+          long_name: "Haltu",
+          short_name: "Haltu",
+          types: ["political", "sublocality", "sublocality_level_1"],
+        },
+        {
+          long_name: "Kolkata",
+          short_name: "Kolkata",
+          types: ["locality", "political"],
+        },
+        {
+          long_name: "Kolkata",
+          short_name: "Kolkata",
+          types: ["administrative_area_level_2", "political"],
+        },
+        {
+          long_name: "West Bengal",
+          short_name: "WB",
+          types: ["administrative_area_level_1", "political"],
+        },
+        {
+          long_name: "India",
+          short_name: "IN",
+          types: ["country", "political"],
+        },
+        {
+          long_name: "700078",
+          short_name: "700078",
+          types: ["postal_code"],
+        },
+      ],
+      formatted_address: "Purbachal Kalitala Rd, North Purbachal, Haltu, Kolkata, West Bengal 700078, India",
+      geometry: {
+        bounds: {
+          northeast: {
+            lat: 22.5050206,
+            lng: 88.3985624,
+          },
+          southwest: {
+            lat: 22.5045801,
+            lng: 88.3984426,
+          },
+        },
+        location: {
+          lat: 22.5048004,
+          lng: 88.39850249999999,
+        },
+        location_type: "GEOMETRIC_CENTER",
+        viewport: {
+          northeast: {
+            lat: 22.50614933029151,
+            lng: 88.3998514802915,
+          },
+          southwest: {
+            lat: 22.5034513697085,
+            lng: 88.39715351970848,
+          },
+        },
+      },
+      place_id: "ChIJ1ZTDYldxAjoRTEKQgx0Tkg8",
+      types: ["route"],
+    },
+    {
+      address_components: [
+        {
+          long_name: "North Purbachal",
+          short_name: "North Purbachal",
+          types: ["political", "sublocality", "sublocality_level_2"],
+        },
+        {
+          long_name: "Haltu",
+          short_name: "Haltu",
+          types: ["political", "sublocality", "sublocality_level_1"],
+        },
+        {
+          long_name: "Kolkata",
+          short_name: "Kolkata",
+          types: ["locality", "political"],
+        },
+        {
+          long_name: "Kolkata",
+          short_name: "Kolkata",
+          types: ["administrative_area_level_2", "political"],
+        },
+        {
+          long_name: "West Bengal",
+          short_name: "WB",
+          types: ["administrative_area_level_1", "political"],
+        },
+        {
+          long_name: "India",
+          short_name: "IN",
+          types: ["country", "political"],
+        },
+        {
+          long_name: "700078",
+          short_name: "700078",
+          types: ["postal_code"],
+        },
+      ],
+      formatted_address: "North Purbachal, Haltu, Kolkata, West Bengal 700078, India",
+      geometry: {
+        bounds: {
+          northeast: {
+            lat: 22.5096639,
+            lng: 88.40142299999999,
+          },
+          southwest: {
+            lat: 22.5036947,
+            lng: 88.39349109999999,
+          },
+        },
+        location: {
+          lat: 22.506157,
+          lng: 88.39796629999999,
+        },
+        location_type: "APPROXIMATE",
+        viewport: {
+          northeast: {
+            lat: 22.5096639,
+            lng: 88.40142299999999,
+          },
+          southwest: {
+            lat: 22.5036947,
+            lng: 88.39349109999999,
+          },
+        },
+      },
+      place_id: "ChIJB8RoqFFxAjoRajxfdhcXbvk",
+      types: ["political", "sublocality", "sublocality_level_2"],
+    },
+    {
+      address_components: [
+        {
+          long_name: "700078",
+          short_name: "700078",
+          types: ["postal_code"],
+        },
+        {
+          long_name: "Kolkata",
+          short_name: "Kolkata",
+          types: ["locality", "political"],
+        },
+        {
+          long_name: "Kolkata",
+          short_name: "Kolkata",
+          types: ["administrative_area_level_2", "political"],
+        },
+        {
+          long_name: "West Bengal",
+          short_name: "WB",
+          types: ["administrative_area_level_1", "political"],
+        },
+        {
+          long_name: "India",
+          short_name: "IN",
+          types: ["country", "political"],
+        },
+      ],
+      formatted_address: "Kolkata, West Bengal 700078, India",
+      geometry: {
+        bounds: {
+          northeast: {
+            lat: 22.516262,
+            lng: 88.40159829999999,
+          },
+          southwest: {
+            lat: 22.4990563,
+            lng: 88.37711329999999,
+          },
+        },
+        location: {
+          lat: 22.5074344,
+          lng: 88.3872835,
+        },
+        location_type: "APPROXIMATE",
+        viewport: {
+          northeast: {
+            lat: 22.516262,
+            lng: 88.40159829999999,
+          },
+          southwest: {
+            lat: 22.4990563,
+            lng: 88.37711329999999,
+          },
+        },
+      },
+      place_id: "ChIJR9bwAE9xAjoRQzzzqQMLkNE",
+      types: ["postal_code"],
+    },
+    {
+      address_components: [
+        {
+          long_name: "Haltu",
+          short_name: "Haltu",
+          types: ["political", "sublocality", "sublocality_level_1"],
+        },
+        {
+          long_name: "Kolkata",
+          short_name: "Kolkata",
+          types: ["locality", "political"],
+        },
+        {
+          long_name: "Kolkata",
+          short_name: "Kolkata",
+          types: ["administrative_area_level_2", "political"],
+        },
+        {
+          long_name: "West Bengal",
+          short_name: "WB",
+          types: ["administrative_area_level_1", "political"],
+        },
+        {
+          long_name: "India",
+          short_name: "IN",
+          types: ["country", "political"],
+        },
+      ],
+      formatted_address: "Haltu, Kolkata, West Bengal, India",
+      geometry: {
+        bounds: {
+          northeast: {
+            lat: 22.5117692,
+            lng: 88.40142299999999,
+          },
+          southwest: {
+            lat: 22.495561,
+            lng: 88.3770394,
+          },
+        },
+        location: {
+          lat: 22.5048386,
+          lng: 88.388459,
+        },
+        location_type: "APPROXIMATE",
+        viewport: {
+          northeast: {
+            lat: 22.5117692,
+            lng: 88.40142299999999,
+          },
+          southwest: {
+            lat: 22.495561,
+            lng: 88.3770394,
+          },
+        },
+      },
+      place_id: "ChIJkzUK5UhxAjoRsV6K-TDTuH8",
+      types: ["political", "sublocality", "sublocality_level_1"],
+    },
+    {
+      address_components: [
+        {
+          long_name: "Kolkata",
+          short_name: "Kolkata",
+          types: ["administrative_area_level_2", "political"],
+        },
+        {
+          long_name: "West Bengal",
+          short_name: "WB",
+          types: ["administrative_area_level_1", "political"],
+        },
+        {
+          long_name: "India",
+          short_name: "IN",
+          types: ["country", "political"],
+        },
+      ],
+      formatted_address: "Kolkata, West Bengal, India",
+      geometry: {
+        bounds: {
+          northeast: {
+            lat: 22.6312601,
+            lng: 88.45716999999999,
+          },
+          southwest: {
+            lat: 22.45139,
+            lng: 88.23506990000001,
+          },
+        },
+        location: {
+          lat: 22.5402602,
+          lng: 88.38219889999999,
+        },
+        location_type: "APPROXIMATE",
+        viewport: {
+          northeast: {
+            lat: 22.6312601,
+            lng: 88.45716999999999,
+          },
+          southwest: {
+            lat: 22.45139,
+            lng: 88.23506990000001,
+          },
+        },
+      },
+      place_id: "ChIJyxufaAB3AjoRzhRx7JWHIFw",
+      types: ["administrative_area_level_2", "political"],
+    },
+    {
+      address_components: [
+        {
+          long_name: "Kolkata",
+          short_name: "Kolkata",
+          types: ["locality", "political"],
+        },
+        {
+          long_name: "West Bengal",
+          short_name: "WB",
+          types: ["administrative_area_level_1", "political"],
+        },
+        {
+          long_name: "India",
+          short_name: "IN",
+          types: ["country", "political"],
+        },
+      ],
+      formatted_address: "Kolkata, West Bengal, India",
+      geometry: {
+        bounds: {
+          northeast: {
+            lat: 23.0083628,
+            lng: 88.5428696,
+          },
+          southwest: {
+            lat: 22.3436288,
+            lng: 88.1165879,
+          },
+        },
+        location: {
+          lat: 22.572646,
+          lng: 88.36389500000001,
+        },
+        location_type: "APPROXIMATE",
+        viewport: {
+          northeast: {
+            lat: 23.0083628,
+            lng: 88.5428696,
+          },
+          southwest: {
+            lat: 22.3436288,
+            lng: 88.1165879,
+          },
+        },
+      },
+      place_id: "ChIJZ_YISduC-DkRvCxsj-Yw40M",
+      types: ["locality", "political"],
+    },
+    {
+      address_components: [
+        {
+          long_name: "West Bengal",
+          short_name: "WB",
+          types: ["administrative_area_level_1", "political"],
+        },
+        {
+          long_name: "India",
+          short_name: "IN",
+          types: ["country", "political"],
+        },
+      ],
+      formatted_address: "West Bengal, India",
+      geometry: {
+        bounds: {
+          northeast: {
+            lat: 27.220707,
+            lng: 89.880039,
+          },
+          southwest: {
+            lat: 21.524921,
+            lng: 85.82095799999999,
+          },
+        },
+        location: {
+          lat: 22.9867569,
+          lng: 87.85497549999999,
+        },
+        location_type: "APPROXIMATE",
+        viewport: {
+          northeast: {
+            lat: 27.220707,
+            lng: 89.880039,
+          },
+          southwest: {
+            lat: 21.524921,
+            lng: 85.82095799999999,
+          },
+        },
+      },
+      place_id: "ChIJh-iXE_8W-jkRCqLnwz06VHE",
+      types: ["administrative_area_level_1", "political"],
+    },
+    {
+      address_components: [
+        {
+          long_name: "India",
+          short_name: "IN",
+          types: ["country", "political"],
+        },
+      ],
+      formatted_address: "India",
+      geometry: {
+        bounds: {
+          northeast: {
+            lat: 35.513327,
+            lng: 97.39535869999999,
+          },
+          southwest: {
+            lat: 6.4626999,
+            lng: 68.1097,
+          },
+        },
+        location: {
+          lat: 20.593684,
+          lng: 78.96288,
+        },
+        location_type: "APPROXIMATE",
+        viewport: {
+          northeast: {
+            lat: 35.513327,
+            lng: 97.39535869999999,
+          },
+          southwest: {
+            lat: 6.4626999,
+            lng: 68.1097,
+          },
+        },
+      },
+      place_id: "ChIJkbeSa_BfYzARphNChaFPjNc",
+      types: ["country", "political"],
+    },
+  ],
+  status: "OK",
+};
 
 export const CommunicatorFetch = (urlName, params) => {
   console.log("Communication fetched==" + urlName);

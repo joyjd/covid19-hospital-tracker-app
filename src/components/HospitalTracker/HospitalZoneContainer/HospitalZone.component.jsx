@@ -8,13 +8,13 @@ import Typography from "@material-ui/core/Typography";
 
 import ResponsiveDialog from "../../../utils/Modals/Modals.component";
 import { CommunicatorFetch, apiKey, p_idList } from "./../../Communicator/Communicator.component";
-import hospitalDetailsData from "./../../../assets/hospitalDetailsData";
+/* import hospitalDetailsData from "./../../../assets/hospitalDetailsData"; */
 import ApiUrls from "../../../utils/ApiUrls.data";
 import { HospitalModalDetailTemplate } from "./../../../utils/Modals/HospitalModalDetailTemplate.component";
 import ExposureIcon from "@material-ui/icons/Exposure";
 
 import Button from "@material-ui/core/Button";
-
+import APiUrls from "./../../../utils/ApiUrls.data";
 import LocalHospitalIcon from "@material-ui/icons/LocalHospital";
 import TextField from "@material-ui/core/TextField";
 import SearchIcon from "@material-ui/icons/Search";
@@ -63,18 +63,20 @@ export class HospitalZone extends React.Component {
       areaTagsOption: false,
       openZoneBackDrop: false,
     };
-    this.completeHospitalData = Object.assign({}, hospitalDetailsData);
   }
 
   componentDidMount() {
-    console.log(this.props);
-    this.setState({
-      selectedHospitalList: Object.assign([], this.props.selectedHospitalList),
-      selectedZones: Object.assign([], this.props.selectedHospitalZoneTags),
-      totalZones: Object.assign([], Object.keys(this.props.hospitalLocationKeyMap)),
+    CommunicatorFetch(APiUrls.getHospitalDetails, "").then((data) => {
+      this.completeHospitalData = Object.assign({}, data);
+      console.log(this.props);
+      this.setState({
+        selectedHospitalList: Object.assign([], this.props.selectedHospitalList),
+        selectedZones: Object.assign([], this.props.selectedHospitalZoneTags),
+        totalZones: Object.assign([], Object.keys(this.props.hospitalLocationKeyMap)),
+      });
+      //this.org_selectedHospital = Object.assign([], this.props.selectedHospitalList);
+      this.prepareSearchEngine();
     });
-    //this.org_selectedHospital = Object.assign([], this.props.selectedHospitalList);
-    this.prepareSearchEngine();
   }
 
   componentDidUpdate() {
@@ -218,13 +220,15 @@ export class HospitalZone extends React.Component {
     }  */ else {
       let searchText = "" + h_name + "," + h_zone + ",West Bengal,India";
       let params = searchText + "&inputtype=textquery&fields=place_id";
+
       CommunicatorFetch(ApiUrls.getPlaceDetails, params)
         .then(
           (data) => {
             if (data["candidates"].length != 0) {
               let place_id = data["candidates"][0]["place_id"];
               let prms = place_id + "&fields=name,geometry,photos,rating,adr_address,business_status,formatted_address,formatted_phone_number,international_phone_number,opening_hours,website,price_level,rating,review,user_ratings_total";
-              return CommunicatorFetch(ApiUrls.getHospitalCompleteDetails, prms);
+              return prms;
+              //return CommunicatorFetch(ApiUrls.getHospitalCompleteDetails, prms);
             } else {
               return "";
             }
@@ -234,14 +238,13 @@ export class HospitalZone extends React.Component {
             console.log("HospitalZoneComponent+ First call====p_id-=====ERROR !!!!!!");
           }
         )
+        .then((prms) => CommunicatorFetch(ApiUrls.getHospitalCompleteDetails, prms))
         .then(
           (data) => {
             if (data != "") {
               //get the new data
               if (data != undefined) {
-                this.completeHospitalData.push({
-                  h_name: data["result"],
-                });
+                this.completeHospitalData[h_name] = data["result"];
                 //Call function to form body
                 this.createHospitalDetailModayBody(this.completeHospitalData[h_name], c_bed, h_dist);
                 this.handleOpenModal();
