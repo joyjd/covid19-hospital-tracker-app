@@ -112,7 +112,7 @@ class App extends React.Component {
   };
   getLocationTrack = () => {
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
+      navigator.geolocation.watchPosition(
         //watchPosition(
         (pos) => {
           if (pos.coords.latitude != this.state.locationCoordinates_lat && pos.coords.longitude != this.state.locationCoordinates_long) {
