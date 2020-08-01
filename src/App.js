@@ -343,16 +343,18 @@ class App extends React.Component {
             // Google denied Map, hence need to show proper error messages
 
             //current implementation for DEV purposes
-            localStorage.setItem("CV19Tracker_lat", dummyData.results[0].geometry.location.lat);
-            localStorage.setItem("CV19Tracker_long", dummyData.results[0].geometry.location.lng);
-            localStorage.setItem("CV19Tracker_detail", JSON.stringify(dummyData.results[0]));
+            let data = JSON.parse(localStorage.getItem("CV19Tracker_detail"));
+
+            //  localStorage.setItem("CV19Tracker_lat", dummyData.results[0].geometry.location.lat);
+            //  localStorage.setItem("CV19Tracker_long", dummyData.results[0].geometry.location.lng);
+            //  localStorage.setItem("CV19Tracker_detail", JSON.stringify(dummyData.results[0]));
             this.setState(
               {
-                formattedAddress: dummyData.results[0].formatted_address,
-                compoundAddress: dummyData.plus_code.compound_code,
-                addressComponents: Object.assign([], dummyData.results[0].address_components),
-                locationCoordinates_lat: dummyData.results[0].geometry.location.lat,
-                locationCoordinates_long: dummyData.results[0].geometry.location.lng,
+                formattedAddress: data.formatted_address,
+                compoundAddress: "",
+                addressComponents: Object.assign([], data.address_components),
+                locationCoordinates_lat: data.geometry.location.lat,
+                locationCoordinates_long: data.geometry.location.lng,
               },
               () => this.handleBackDropClose()
             );
@@ -364,11 +366,11 @@ class App extends React.Component {
 
           this.setState(
             {
-              formattedAddress: dummyData.results[0].formatted_address,
-              compoundAddress: dummyData.plus_code.compound_code,
-              addressComponents: Object.assign([], dummyData.results[0].address_components),
-              locationCoordinates_lat: lat,
-              locationCoordinates_long: long,
+              formattedAddress: data.formatted_address,
+              compoundAddress: "",
+              addressComponents: Object.assign([], data.address_components),
+              locationCoordinates_lat: data.geometry.location.lat,
+              locationCoordinates_long: data.geometry.location.lng,
             },
             () => this.handleBackDropClose()
           );
