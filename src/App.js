@@ -363,7 +363,7 @@ class App extends React.Component {
         (error) => {
           // Google Web api failed, hence need to show proper error messages
           //current implementation for DEV purposes
-
+          let data = JSON.parse(localStorage.getItem("CV19Tracker_detail"));
           this.setState(
             {
               formattedAddress: data.formatted_address,
